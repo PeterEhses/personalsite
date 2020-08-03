@@ -1,9 +1,17 @@
 <template>
-<div class="bgBoi" v-bind:style="{ backgroundImage: 'url(' + file + ')' }">
-  <div class="coverBoi" :style="{background: gradient}">
+<div
+class="bgBoi"
+v-bind:style="{backgroundImage: 'url(' + fileLoaded + ')' }"
+>
+  <div
+  class="coverBoi"
+  :style="{background: gradient}"
+  >
     <slot> </slot>
-
   </div>
+
+
+
 
 </div>
 </template>
@@ -42,6 +50,8 @@ export default {
   },
   computed: {
     gradient: function(){
+
+      if(this.gradVal.length != 1){
       let grad = this.gradType+"-gradient("
       if(this.gradType == "linear"){
         grad+= this.gradAngle+"deg"
@@ -55,7 +65,17 @@ export default {
       }
       grad += ")"
       return grad;
+    } else {
+          return("rgb(" + this.gradVal[0][0] + "," + this.gradVal[0][1] + "," + this.gradVal[0][2] + ")")
     }
+  },
+  fileLoaded: function(){
+    if(this.gradVal.length > 0){
+      return this.file
+    } else {
+      return ""
+    }
+  }
   },
   watch: {
     file: function(){ // calculate color gradient once file has loaded
@@ -64,7 +84,13 @@ export default {
         var dummyImg = new Image(); // create dummy img for canvas to interact with
         dummyImg.src = this.file;
         dummyImg.addEventListener('load', function() { // wait for it to finish loading
-          gradStr = that.$root.$colorThief.getPalette(dummyImg, that.resolution, that.quality); // do color thief things
+          if(that.resolution < 2) {
+            gradStr = that.$root.$colorThief.getColor(dummyImg, that.resolution, that.quality); // do color thief things
+            gradStr = [gradStr]
+          } else {
+            gradStr = that.$root.$colorThief.getPalette(dummyImg, that.resolution, that.quality); // do color thief things
+          }
+
           //console.log(gradStr)
           that.gradVal = gradStr;
         });
@@ -88,17 +114,23 @@ export default {
 <style lang="scss" scoped>
 .bgBoi{
     padding: 0;
+    background: var(--neutral-bg);
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 9000px;
+    width: 100%;
+    height: 100%;
 
 }
 
 .coverBoi{
+  border-radius: 9000px;
   width: 100%;
   height: 100%;
   margin: 0;
   opacity: 1;
-  transition: opacity 1s ease-in-out;
+  transition: opacity var(--transition-time) ease-in-out;
   &:hover{
     opacity: 0;
   }

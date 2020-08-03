@@ -22,6 +22,10 @@
     :postData="endText"
     :style="{width: greetingDimension.back}"
     />
+
+    <articleBoi class="activeArticle" v-if="$route.params.id">
+      {{ $route.params }}
+    </articleBoi>
 <!-- eslint-enable -->
 
 
@@ -42,6 +46,7 @@
 
 import postPill from "@/components/postPill.vue";
 import contentPill from "@/components/contentPill.vue";
+import articleBoi from "@/components/articleBoi.vue";
 
 export default {
 
@@ -50,6 +55,7 @@ export default {
     // pathtextinator,
     postPill,
     contentPill,
+    articleBoi,
   },
     data: function(){
     return {
@@ -59,8 +65,9 @@ export default {
       innerWidth: (window.innerWidth > 0) ? window.innerWidth : screen.width,
       postdata: [],
       greetingText: {
-        title:'Hi',
+        title:'Moin,',
         body: `<p> Ich bin Peter.</p>
+        <p>Diese Seite ist gerade im Aufbau, aber schau dich ruhig schon einmal um.</p>
         <p>Hier sind meine Projekte.</p>
         <p><hr/></p>
         <p>Kann ich dir helfen?</p>
@@ -106,10 +113,15 @@ export default {
       return this.posts.length%this.numSegments;
     },
     tileContainerHeight: function(){
-      return "calc( ( 100vh - 8rem ) * "+this.postsSplit+" )"
+      let mult = this.postsSplit
+      if(((this.numSegments-this.extraSpace)/2 <= 1) || (!isNaN(this.extraSpace) && this.extraSpace < 1)){
+        mult += 1;
+      }
+      return "calc( ( 100vh - 8rem ) * "+mult+" )"
     },
     greetingDimension: function(){
-      if(this.numSegments-this.extraSpace < 2) {
+
+      if(this.numSegments == false) { // this.numSegments-this.extraSpace < 2
         let dim = "calc(100% / "
         dim += this.numSegments
         dim += " * "
@@ -122,12 +134,16 @@ export default {
           let dim = "calc(100% / "
           dim += this.numSegments
           dim += " * "
-          dim += Math.ceil((this.numSegments-this.extraSpace)/2) || 1
+          if(Math.ceil((this.numSegments-this.extraSpace)/2) < 2) {
+            dim += Math.floor((this.numSegments+this.numSegments-this.extraSpace)/2)
+          } else {
+            dim += Math.ceil((this.numSegments-this.extraSpace)/2)
+          }
           dim += " )"
           let dim2 = "calc(100% / "
           dim2 += this.numSegments
           dim2 += " * "
-          dim2 += Math.floor((this.numSegments-this.extraSpace)/2)
+          dim2 += Math.floor((this.numSegments-this.extraSpace)/2) || Math.ceil((this.numSegments+this.numSegments-this.extraSpace)/2)
           dim2 += " )"
           return {front: dim, back: dim2}
       }
@@ -197,9 +213,12 @@ destroyed: function () {
 </script>
 
 <style lang="scss" scoped>
+
+
 .postRow{
   display: flex;
   width: 100%;
+
 }
   .tileContainer{
     width: 100%;
@@ -218,6 +237,7 @@ destroyed: function () {
     height: 500px;
     height: 100vh;
     height: calc( 100vh - 8.666rem );
+
   }
   .tile{
 
