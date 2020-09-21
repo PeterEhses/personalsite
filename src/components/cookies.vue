@@ -15,15 +15,22 @@
 
 <script>
 import CookieLaw from 'vue-cookie-law'
-import { bootstrap } from 'vue-gtag'
+// eslint-disable-next-line no-unused-vars
+import {setOptions, bootstrap } from 'vue-gtag'
   export default {
     components: { CookieLaw },
     methods: {
       cookeAccept(){
+        setOptions({
+          config: { id: 'UA-36014546-2' },
+          disableScriptLoad: false
+        })
         // eslint-disable-next-line no-unused-vars
         bootstrap().then(gtag => {
         // all done!
-      })
+      }).then(
+
+        this.$gtag.pageview({page_path: this.$route.path,}))
       }
     }
   }

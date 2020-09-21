@@ -14,6 +14,10 @@ Vue.use(VueGtag, {
     },
     bootstrap: false,
 
+  },
+  disableScriptLoad: true,
+  onAfterTrack () {
+    console.log("🍪")
   }
 }, router);
 
