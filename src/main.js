@@ -5,6 +5,17 @@ import router from './router'
 import store from './store'
 
 Vue.config.productionTip = false
+import VueGtag from "vue-gtag";
+
+Vue.use(VueGtag, {
+  config: {
+    params: {
+      id: 'UA-36014546-2'
+    },
+    bootstrap: false,
+
+  }
+}, router);
 
 import axios from 'axios'
 import VueAxios from 'vue-axios'
@@ -12,6 +23,7 @@ import VueAxios from 'vue-axios'
 import ColorThief from 'colorthief/dist/color-thief.mjs'
 
 import DirectusSDK from "@directus/sdk-js";
+
 
 
 Object.defineProperties(Vue.prototype, {

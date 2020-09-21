@@ -2,7 +2,10 @@
   <footer id="footer">
     <social/>
     <hr/>
-    <router-link to="/about" class="nav">Impressum und Datenschutz</router-link>
+    <p><router-link to="/impressum" class="nav">Impressum</router-link> +
+    <router-link to="/datenschutz" class="nav">Datenschutz</router-link></p>
+
+
   </footer>
 </template>
 

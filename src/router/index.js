@@ -7,11 +7,12 @@ Vue.use(VueRouter)
   const routes = [
   {
     path: '/',
-    meta:{
-      collection: "projects",
-    },
-    name: 'Projekte',
-    component: () => import(/* webpackChunkName: "projects" */ '../views/projects.vue')
+    redirect: '/projects',
+    // meta:{
+    //   collection: "projects",
+    // },
+    // name: 'Projekte',
+    // component: () => import(/* webpackChunkName: "projects" */ '../views/projects.vue')
   },
   {
     path: '/about',
@@ -20,6 +21,22 @@ Vue.use(VueRouter)
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '/datenschutz',
+    name: 'Datenschutz',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "datenschutz" */ '../views/datenschutz.vue')
+  },
+  {
+    path: '/impressum',
+    name: 'Impressum',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "impressum" */ '../views/impressum.vue')
   },
   {
     path: '/projects',
@@ -38,7 +55,7 @@ Vue.use(VueRouter)
     meta:{
       collection: "projects",
     },
-    name: 'Projekte',
+    name: 'Projekt',
     component: () => import('../views/projects.vue')
   }
 ]

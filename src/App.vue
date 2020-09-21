@@ -28,6 +28,7 @@
 
     </header>
     <router-view />
+    <cookies/>
     <footerBoi/>
 
   </div>
@@ -37,11 +38,13 @@
 
 <script>
 import footerBoi from "@/components/footer.vue"
+import cookies from "@/components/cookies.vue"
 export default {
   name: "app",
   components:{
 
-    footerBoi
+    footerBoi,
+    cookies
   },
   // mounted() {
   //     this.$nextTick(function(){
@@ -89,6 +92,9 @@ export default {
   scrollbar-color: var(--content-color) var(--bg);
   scrollbar-width: thin;
 }
+
+*:focus{ outline: none; }
+
   //blink / webkit
 ::-webkit-scrollbar {
   width: 7px;

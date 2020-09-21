@@ -6,20 +6,27 @@
     </div>
     </router-link>
 
-    <div class="hero" v-if="postdata.data" :style="{background: heroBG}">
-        <h2>{{postdata.data.title}}</h2>
+    <div class="hero" v-if="postdata.data && postdata.data.header_image" :style="{background: heroBG}">
+        <!-- <h2>{{postdata.data.title}}</h2> -->
+    </div>
+    <div class="info" v-if="postdata.data">
+      <h2>{{postdata.data.title}}</h2>
+      <div class="projectLinks" v-if="postdata.data.external_links">
+        <div class="projectLink" v-for="(url, name) in postdata.data.external_links" :key="url">
+          <h4> {{name}} <a :href="url">{{postdata.data.project_link}}</a> </h4>
+        </div>
+      </div>
+
+      <gallery :data="postdata.data.gallery" v-if="postdata.data.gallery.length > 0"/>
     </div>
 
-    <div class="projectLink" v-if="postdata.data && postdata.data.project_link">
-      <h4>Project Link: <a :href="postdata.data.project_link">{{postdata.data.project_link}}</a> </h4>
+
+
+
+    <div id="content" class="body" v-html="postdata.data.body" v-if="postdata.data">
     </div>
 
 
-
-    <div class="body" v-html="postdata.data.body" v-if="postdata.data">
-    </div>
-
-    <gallery :data="postdata.data.gallery" v-if="postdata.data && postdata.data.gallery.length > 0"/>
 
     <footerBoi/>
   </article>
@@ -44,7 +51,7 @@ export default {
       rgba(0, 0, 0, 0.15),
       rgba(0, 0, 0, 0.15)
     ),`
-
+      gray = "";
       let url = 'url('+
       "https://directus."+
       this.$host+
@@ -62,7 +69,7 @@ export default {
       if(id != ""){
         id = "/"+id
       }
-      this.$api.getItems(this.$api.prefix+collection+id,{fields:["*","header_image.data.full_url", "gallery.directus_files_id.data"],sort: "-created_on"}).then(data => {
+      this.$api.getItems(this.$api.prefix+collection+id,{fields:["*","header_image.data.full_url", "gallery.directus_files_id.data","video_embeds.directus_files_id.data"],sort: "-created_on"}).then(data => {
         //console.log(data)
       that.postdata = data;
       console.log(data)
@@ -159,10 +166,10 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   align-items: center;
   //width: calc( 100% - 4.666rem);
-  height: 16rem;
-  margin: 2rem;
-  border-radius: 8rem;
-  border: var(--border-width) solid var(--content-color);
+  height: calc(66vh - 3rem);
+  //margin: 2rem;
+  border-radius: 9rem 0 10rem 0;
+  //border: var(--border-width) solid var(--content-color);
   background-position: center !important;
   background-repeat: no-repeat !important;
   background-size: cover !important;
@@ -172,6 +179,18 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 3rem;
     color: var(--white);
     font-family: heimat-sans, sans-serif;
+    border: none;
+  }
+}
+
+
+// info area: heading, links, ...
+
+.info{
+  width: 100%;
+  height: 34vh;
+  flex-shrink: 0;
+  h2{
     border: none;
   }
 }
