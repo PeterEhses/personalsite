@@ -18,7 +18,7 @@
       <nav>
         <router-link to="/about" class="nav">Kontakt</router-link>
         <hr />
-        <router-link to="/" class="nav">Projekte</router-link>
+        <router-link to="/projects" class="nav">Projekte</router-link>
         <hr />
         <router-link to="/about" class="nav">Blog</router-link>
 
@@ -27,7 +27,7 @@
 
 
     </header>
-    <router-view />
+    <router-view class="router-content"/>
     <cookies/>
     <footerBoi/>
 
@@ -212,7 +212,10 @@ nav, #logo{
 }
 
 
-
+.router-content{
+  min-height: 100%;
+  min-height: calc(100vh - 10.5rem);
+}
 
 
 #decoration{

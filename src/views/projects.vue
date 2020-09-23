@@ -1,42 +1,26 @@
 <template>
 <!-- eslint-disable -->
-  <div class="home tileContainer" :style="{height: tileContainerHeight}">
-    <contentPill
-    class="tile greeting"
-    :postData="greetingText"
-    :style="{width: greetingDimension.front}"
-    />
+<div class="home tileContainer" :style="{height: tileContainerHeight}">
+  <contentPill class="tile greeting" :postData="greetingText" :style="{width: greetingDimension.front}" />
 
-    <postPill
-    v-if="posts"
-    class="tile"
-    :style="{width: tileDimension}"
-    v-for="post in posts"
-    :postData="post"
-    :key="post.id"
-    />
+  <postPill v-if="posts" class="tile" :style="{width: tileDimension}" v-for="post in posts" :postData="post" :key="post.id" />
 
-    <contentPill
-    v-if="greetingDimension.back"
-    class="tile greeting"
-    :postData="endText"
-    :style="{width: greetingDimension.back}"
-    />
+  <contentPill v-if="greetingDimension.back" class="tile greeting" :postData="endText" :style="{width: greetingDimension.back}" />
 
-    <articleBoi class="activeArticle" v-if="$route.params.id">
-      {{ $route.params }}
-    </articleBoi>
-<!-- eslint-enable -->
+  <articleBoi class="activeArticle" v-if="$route.params.id">
+    {{ $route.params }}
+  </articleBoi>
+  <!-- eslint-enable -->
 
 
-    <!-- <div  class="tile" v-for="idx in numSegments" :key="idx" :style="{width: tileDimension}">
+  <!-- <div  class="tile" v-for="idx in numSegments" :key="idx" :style="{width: tileDimension}">
       <gradiator :gradType="['linear', 'radial', 'conic'][idx%3]" :gradAngle="((baseSegments%(idx))+idx*69)%360" :resolution="Math.round(Math.random()*6)" :quality="10" :imageUrl="randImgs[idx-1]" :style="{height: '100%'}">
         <pathtextinator>
          Hi! look at my Lorem Ballsum
         </pathtextinator>
       </gradiator>
     </div> -->
-  </div>
+</div>
 </template>
 
 <script>
@@ -57,7 +41,7 @@ export default {
     contentPill,
     articleBoi,
   },
-    data: function(){
+  data: function() {
     return {
       collection: "projects",
       baseSegments: 6,
@@ -65,17 +49,18 @@ export default {
       innerWidth: (window.innerWidth > 0) ? window.innerWidth : screen.width,
       postdata: [],
       greetingText: {
-        title:'Moin,',
+        title: 'Moin,',
         body: `<p> Ich bin Peter.</p>
         <p>Diese Seite ist gerade im Aufbau, aber schau dich ruhig schon einmal um.</p>
         <p>Hier sind meine Projekte.</p>
         <p><hr/></p>
         <p>Kann ich dir helfen?</p>
          <a class="button" href="./kontakt">Find' es heraus!</a>`,
-        id:"ball" },
-        endText: {
-          title:"Mehr gibt's erst später",
-          body: `<p>Bis dahin hier eine Ente und noch ein <i>call to action</i>.</p>
+        id: "ball"
+      },
+      endText: {
+        title: "Mehr gibt's erst später",
+        body: `<p>Bis dahin hier eine Ente und noch ein <i>call to action</i>.</p>
           <svg  style="width: 60px; height: 50px;">
           <g   transform="translate(0,-233.49996)">
     <path
@@ -89,17 +74,19 @@ export default {
           <p><hr/></p>
           <p>Kann ich dir helfen?</p>
            <a class="button" href="./kontakt">Find' es heraus!</a>`,
-          id:"egg" }
+        id: "egg"
+      }
     }
-  }, computed: {
-    posts: function(){
+  },
+  computed: {
+    posts: function() {
       let posts = [];
-      if(this.postdata["data"]){
-        for(let i = 0; i < this.postdata["data"].length; i++){
+      if (this.postdata["data"]) {
+        for (let i = 0; i < this.postdata["data"].length; i++) {
 
-            let post = this.postdata["data"][i];
-            post.collection=this.collection;
-            posts.push(post);
+          let post = this.postdata["data"][i];
+          post.collection = this.collection;
+          posts.push(post);
 
         }
       }
@@ -110,67 +97,77 @@ export default {
       return Math.ceil(this.posts.length / this.numSegments);
     },
     extraSpace: function() {
-      return this.posts.length%this.numSegments;
+      return this.posts.length % this.numSegments;
     },
-    tileContainerHeight: function(){
+    tileContainerHeight: function() {
       let mult = this.postsSplit
-      if(((this.numSegments-this.extraSpace)/2 <= 1) || (!isNaN(this.extraSpace) && this.extraSpace < 1)){
+
+      if (((this.numSegments - this.extraSpace) / 2 <= 1) || (!isNaN(this.extraSpace) && this.extraSpace < 1)) {
         mult += 1;
       }
-      return "calc( ( 100vh - 8rem ) * "+mult+" )"
+      if(this.numSegments < 2){
+        mult += 1;
+      }
+      console.log('ps', this.postsSplit, this.numSegments, this.extraSpace, mult)
+      return "calc( ( 100vh - 8rem ) * " + mult + " )"
     },
-    greetingDimension: function(){
+    greetingDimension: function() {
 
-      if(this.numSegments == false) { // this.numSegments-this.extraSpace < 2
+      if (this.numSegments == false) { // this.numSegments-this.extraSpace < 2
         let dim = "calc(100% / "
         dim += this.numSegments
         dim += " * "
-        dim += this.numSegments-this.extraSpace
+        dim += this.numSegments - this.extraSpace
         dim += " )"
-        return {front: dim, back: undefined}
-      }
-      else{
-          //console.log(this.extraSpace, Math.floor((this.numSegments-this.extraSpace)/2))
-          let dim = "calc(100% / "
-          dim += this.numSegments
-          dim += " * "
-          if(Math.ceil((this.numSegments-this.extraSpace)/2) < 2) {
-            dim += Math.floor((this.numSegments+this.numSegments-this.extraSpace)/2)
-          } else {
-            dim += Math.ceil((this.numSegments-this.extraSpace)/2)
-          }
-          dim += " )"
-          let dim2 = "calc(100% / "
-          dim2 += this.numSegments
-          dim2 += " * "
-          dim2 += Math.floor((this.numSegments-this.extraSpace)/2) || Math.ceil((this.numSegments+this.numSegments-this.extraSpace)/2)
-          dim2 += " )"
-          return {front: dim, back: dim2}
+        return {
+          front: dim,
+          back: undefined
+        }
+      } else {
+        //console.log(this.extraSpace, Math.floor((this.numSegments-this.extraSpace)/2))
+        let dim = "calc(100% / "
+        dim += this.numSegments
+        dim += " * "
+        if (Math.ceil((this.numSegments - this.extraSpace) / 2) < 2) {
+          dim += Math.floor((this.numSegments + this.numSegments - this.extraSpace) / 2)
+        } else {
+          dim += Math.ceil((this.numSegments - this.extraSpace) / 2)
+        }
+        dim += " )"
+        let dim2 = "calc(100% / "
+        dim2 += this.numSegments
+        dim2 += " * "
+        dim2 += Math.floor((this.numSegments - this.extraSpace) / 2) || Math.ceil((this.numSegments + this.numSegments - this.extraSpace) / 2)
+        dim2 += " )"
+        return {
+          front: dim,
+          back: dim2
+        }
       }
 
     },
-    tileDimension: function(){
+    tileDimension: function() {
       let dim = "calc(100% / "
       dim += this.numSegments
       dim += " )"
       return dim
     },
-    numSegments: function(){
+    numSegments: function() {
       let numS = 0;
       let width = this.innerWidth;
-      let baseWidth = (1900/this.baseSegments) // calculkate dynamically based on my screen because i only own so many devices
-      numS = Math.round(width / baseWidth )
+      let baseWidth = (1900 / this.baseSegments) // calculkate dynamically based on my screen because i only own so many devices
+      numS = Math.round(width / baseWidth)
       return numS
     },
     randImgs: function() {
       let URLs = []
-      if(this.picdata.length >= this.numSegments){
-        let ranNum = Math.round(Math.random()*(this.picdata.length-this.numSegments))
-        for(let i = 0; i < this.numSegments; i++){
+      if (this.picdata.length >= this.numSegments) {
+        let ranNum = Math.round(Math.random() * (this.picdata.length - this.numSegments))
+        for (let i = 0; i < this.numSegments; i++) {
           //console.log(ranNum+i)
-          let url = this.picdata[ranNum+i].download_url
-          url = url.split("/").slice(0,-2).join("/")+"/512"
-            URLs.push(url);
+          let url = this.picdata[ranNum + i].download_url
+          url = url.split("/").slice(0, -2).join("/") + "/512"
+          URLs.push(url);
         }
       }
       return URLs;
@@ -183,44 +180,46 @@ export default {
       this.axios.get("https://picsum.photos/v2/list?limit=100").then((response) => {
         //console.log(response)
         that.picdata = response.data
-  } );
-},
-myEventHandler(){
-  this.innerWidth = (window.innerWidth > 0) ? window.innerWidth : screen.width
-},
-getPosts(collection) {
-  let that = this;
-  this.$api.getItems(this.$api.prefix+collection,{fields:["id","title","header_image.data.full_url"],sort: "-created_on"}).then(data => {
-    //console.log(data)
-  that.postdata = data;
+      });
+    },
+    myEventHandler() {
+      this.innerWidth = (window.innerWidth > 0) ? window.innerWidth : screen.width
+    },
+    getPosts(collection) {
+      let that = this;
+      this.$api.getItems(this.$api.prefix + collection, {
+          fields: ["id", "title", "header_image.data.full_url"],
+          sort: "-created_on"
+        }).then(data => {
+          //console.log(data)
+          that.postdata = data;
 
-})
-.catch(error => console.error(error));
-}
+        })
+        .catch(error => console.error(error));
+    }
   },
 
 
   mounted: function() {
     this.getPosts(this.collection)
     this.getImgsAsync()
-}, created: function () {
-  window.addEventListener("resize", this.myEventHandler);
-},
-destroyed: function () {
-  window.removeEventListener("resize", this.myEventHandler);
-},
+  },
+  created: function() {
+    window.addEventListener("resize", this.myEventHandler);
+  },
+  destroyed: function() {
+    window.removeEventListener("resize", this.myEventHandler);
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-
-
-.postRow{
-  display: flex;
-  width: 100%;
+.postRow {
+    display: flex;
+    width: 100%;
 
 }
-  .tileContainer{
+.tileContainer {
     width: 100%;
     height: auto;
     min-height: calc(100vh - 8rem);
@@ -229,19 +228,16 @@ destroyed: function () {
     flex-grow: 1;
     //flex-shrink: 0;
     align-items: stretch;
-  }
-  .tile,
-  .tileContainer{
-    padding: .333rem;
+}
+.tile,
+.tileContainer {
+    padding: 0.333rem;
     width: 100%;
     height: 500px;
     height: 100vh;
-    height: calc( 100vh - 8.666rem );
+    height: calc(100vh - 8.666rem);
 
-  }
-  .tile{
-
-  }
-  .greeting{
-  }
+}
+.tile {}
+.greeting {}
 </style>
