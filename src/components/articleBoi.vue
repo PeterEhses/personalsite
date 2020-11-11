@@ -21,9 +21,10 @@
     </div>
 
 
-
-
-    <div id="content" class="body" v-html="postdata.data.body" v-if="postdata.data">
+    <vue-markdown class="markdown" v-if="postdata.data && isMarkdown" :quotes="'„“‚‘'">
+      {{postdata.data.body_markdown}}
+    </vue-markdown>
+    <div id="content" class="body" v-html="postdata.data.body" v-if="postdata.data && !isMarkdown">
     </div>
 
 
@@ -33,17 +34,24 @@
 </template>
 
 <script>
+import Prism from 'prismjs'
+
+import '../assets/prism-a11y-dark.css'
+import 'prismjs/plugins/autoloader/prism-autoloader.min.js'
+import VueMarkdown from 'vue-markdown'
 import footerBoi from "@/components/footer.vue"
 import gallery from "@/components/gallery.vue"
 export default {
   name: "articleBoi",
   components: {
     footerBoi,
-    gallery
+    gallery,
+    VueMarkdown
   },
   data: function(){
     return{
       postdata: {},
+      isMarkdown: false,
     }
   }, computed: {
     heroBG: function(){
@@ -72,11 +80,25 @@ export default {
       this.$api.getItems(this.$api.prefix+collection+id,{fields:["*","header_image.data.full_url", "gallery.directus_files_id.data","video_embeds.directus_files_id.data"],sort: "-created_on"}).then(data => {
         //console.log(data)
       that.postdata = data;
-      console.log(data)
-
+      if(data.data.body_markdown){
+        that.isMarkdown = true;
+      } else {
+        that.isMarkdown = false;
+      }
     })
     .catch(error => console.error(error));
     }
+  },
+  updated: function () {
+    if(this.isMarkdown){
+      this.$nextTick(function(){
+        if(!this.$root._Prism){
+          this.$root._Prism = Prism;
+        }
+        this.$root._Prism.highlightAll()
+      })
+    }
+
   },
   mounted: function(){
     this.getPosts(this.$route.meta.collection, this.$route.params.id)
@@ -93,6 +115,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+@import "https://unpkg.com/katex@0.6.0/dist/katex.min.css";
+
+
 .activeArticle{
   display: flex;
   flex-direction: column;
@@ -105,13 +131,23 @@ export default {
   top: 3rem;
   width: calc(100% - .666em);
   height: calc(100vh - 3rem);
-  background: var(--bg);
+  background-image: url("/img/img-noise-256x256.png");
+  background-attachment: local;
+  background-blend-mode: lighten;
+  background-color: var(--bg);
+  &::-webkit-scrollbar-track {
+    background-image: url("/img/img-noise-256x256.png");
+    background-color: var(--bg);
+    border-radius: 0;
+    //border: .5px solid var(--content-color);
+  }
   box-sizing: border-box;
   border-radius: 10rem 0 0 0;
   border-left: var(--border-width) solid var(--content-color);
   border-top: var(--border-width) solid var(--content-color);
   margin-left: .666rem;
 }
+
 #articleBack{
   padding: 0;
   margin: 0;

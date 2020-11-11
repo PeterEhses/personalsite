@@ -71,7 +71,27 @@ export default {
 <style lang="scss">
 @import 'https://unpkg.com/sanitize.css';
 @import url("https://use.typekit.net/svb2axx.css");
+
+//aw-conqueror-didot, serif;
+
+// font-family: heimat-sans, sans-serif;
+//
+// font-weight: 300;
 :root{
+  font-size: 1.35em;
+
+  --accent-text-transform: uppercase;
+
+  --accent-text-font: aw-conqueror-didot, sans-serif;
+  --accent-text-weight: 300;
+  --accent-text-style: normal;
+  --accent-text-weight-bold: 600;
+
+  --body-text-font: ff-basic-gothic-pro, sans-serif;
+  --body-text-weight: 100;
+  --body-text-style: normal;
+  --body-text-weight-bold: 700;
+
   --base-color: #a1a1a1;
   --white: #fafafa;
   --black: #101010;
@@ -110,12 +130,28 @@ export default {
   background: var(--content-color);
 }
 
+// code highlighting
+@import "https://fonts.googleapis.com/css2?family=Fira+Code&display=swap";
+code,
+pre code,
+pre code span{
+  font-family: 'Fira Code', monospace !important;
+  font-size: 0.78rem !important;
+}
+.token.keyword, .token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string, .token.variable, .token.boolean, .token.number{
+  color: var(--accent-color) !important;
+}
+
+//
+
 
 .button{
   padding: .5rem 1rem;
   font-size: 1rem;
   color: var(--content-color);
-  font-family: aw-conqueror-didot, serif;
+  font-family: var(--accent-text-font);
+  font-style: var(--accent-text-style);
+  font-weight: var(--accent-text-weight-bold);
   text-transform: none;
   border: var(--border-width) solid var(--accent-color);
   border-radius: 9000px;
@@ -129,7 +165,7 @@ svg {
     font-size: 1.5em;
     letter-spacing: 2px;
     color: var(--white);
-    text-transform: uppercase;
+    text-transform: var(--accent-text-transform);
     mix-blend-mode: normal;
 }
 a,
@@ -137,11 +173,12 @@ h1,
 h3,
 h4,
 h5 {
-    font-family: aw-conqueror-didot, serif;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-weight: 400;
-    color: var(--accent-color);
+  font-family: var(--accent-text-font);
+  font-style: var(--accent-text-style);
+  font-weight: var(--accent-text-weight);
+  text-transform: var(--accent-text-transform);
+  text-decoration: none;
+  color: var(--accent-color);
 }
 .nav,
 h1,
@@ -161,9 +198,9 @@ hr {
 
 #app {
     color: var(--content-color);
-    font-family: heimat-sans, sans-serif;
-
-    font-weight: 300;
+    font-family: var(--body-text-font);
+    font-style: var(--body-text-style);
+    font-weight: var(--body-text-weight);
     text-align: center;
     width: 100%;
     //height: 100%;
@@ -172,13 +209,13 @@ hr {
 
 }
 #logo{
-  font-family: heimat-sans, sans-serif;
-}
-
-nav, #logo{
   display: inline-block;
+  font-family: var(--body-text-font);
+  font-style: var(--body-text-style);
+  font-weight: var(--body-text-weight);
 }
 #nav {
+  display: inline-block;
   height: 8rem;
   width: 100vw;
   z-index: 90001;
@@ -188,11 +225,18 @@ nav, #logo{
   align-items: center;
     padding: 0 1rem;
     transition: all calc( var(--transition-time) / 2);
-    a {
+    a,
+    h1{
+      font-weight: var(--accent-text-weight-bold);
+    }
 
+    a {
         &.router-link-exact-active {
-          font-family: heimat-sans, sans-serif;
-            color: var(--content-color);
+          //font-family: heimat-sans, sans-serif;
+          font-family: var(--body-text-font);
+          font-style: var(--body-text-style);
+          font-weight: var(--body-text-weight);
+          color: var(--content-color);
         }
     }
  &.shrink{
@@ -223,6 +267,8 @@ nav, #logo{
   width: 100%;
   height: 100%;
   overflow: hidden;
+  background-image: url("/img/img-noise-256x256.png");
+  background-blend-mode: lighten;
   background-color: var(--bg);
 }
 #actualcontent{
@@ -261,7 +307,11 @@ height: 100vh;
 
   & span {
     &:nth-child(n){
-      font-family: aw-conqueror-didot, serif;
+      //font-family: aw-conqueror-didot, serif;
+      font-family: var(--accent-text-font);
+      font-style: var(--accent-text-style);
+      font-weight: var(--accent-text-weight);
+
     }
 
     line-height: .91;

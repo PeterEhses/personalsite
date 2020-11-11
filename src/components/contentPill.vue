@@ -55,9 +55,9 @@ export default {
 
 h3{
   color: var(--content-color);
-  font-size: 2rem;
-  //-webkit-transform: rotate(90deg);
-  font-family: heimat-sans, sans-serif;
+  font-family: var(--body-text-font);
+  font-style: var(--body-text-style);
+  font-weight: var(--body-text-weight-bold);
 }
 .tile{
 

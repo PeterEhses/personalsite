@@ -162,7 +162,8 @@ function getTimeCol(nowTime){
   let color = lerpColor(col1, col2, step);
    //color = lerpColor("#F09A92", "#303030", 1);
   //console.log({now: nowTime, sunrise: sunrise, midday: midday, sunset: sunset, col1: col1, col2: col2, step: step})
-  return color
+  //console.log(color)
+  return color //'#f1eddc'//color
 
 }
 
