@@ -202,7 +202,7 @@ export default {
 
   mounted: function() {
     this.getPosts(this.collection)
-    this.getImgsAsync()
+    //this.getImgsAsync()
   },
   created: function() {
     window.addEventListener("resize", this.myEventHandler);
