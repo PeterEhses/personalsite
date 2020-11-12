@@ -24,7 +24,7 @@
     <vue-markdown class="markdown" v-if="postdata.data && isMarkdown" :quotes="'„“‚‘'">
       {{postdata.data.body_markdown}}
     </vue-markdown>
-    <div id="content" class="body" v-html="postdata.data.body" v-if="postdata.data && !isMarkdown">
+    <div id="content" class="articlebody" v-html="postdata.data.body" v-if="postdata.data && !isMarkdown">
     </div>
 
 
@@ -171,28 +171,28 @@ export default {
   #articleBack{
     padding: 0;
     margin: 0;
-  position: absolute;
-  left: 0;
-  top: 0;
-  & div{
-    width: 3rem;
-    height: 2rem;
-    border-radius: 9000px;
-    border: var(--border-width) solid var(--content-color);
-    background: var(--bg);
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    & p{
-      color: var(--content-color);
-      font-family: heimat-sans, sans-serif;
-      margin: 0;
-      padding: 0;
-      font-size: 2.5rem;
-    }
+    position: absolute;
+    left: 0;
+    top: 0;
+    & div{
+      width: 3rem;
+      height: 2rem;
+      border-radius: 9000px;
+      border: var(--border-width) solid var(--content-color);
+      background: var(--bg);
+      position: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      & p{
+        color: var(--content-color);
+        font-family: heimat-sans, sans-serif;
+        margin: 0;
+        padding: 0;
+        font-size: 2.5rem;
+      }
 
-  }
+    }
   }
 
   .projectLink a{
@@ -203,14 +203,7 @@ export default {
     border-radius: 9000px;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    color: var(--content-color);
-    padding: .3em .3em .2em .3em;
-    margin: 0 .5em;
-    text-transform: none;
-    border-radius: 9000px;
-    //border: var(--border-width) solid var(--content-color);
-  }
+
 
   // hero
 
@@ -263,25 +256,6 @@ export default {
 
   //content
 
-  .body,
-  .markdown{
-    flex-grow: 1;
-      text-align: left;
-      padding: 1.5rem;
-      margin: auto;
-        //background: red;
-        width: 100%;
-        max-width: 50em;
-        max-width: calc(60ch + 3rem);
-      & img{
-        width: auto !important;
-        height: auto !important;
-        max-width: calc(100vw - .666em);
-        max-height: 100vh;
-        margin-left: 50%;
-        transform:translateX(-50%);
 
-      }
-  }
 }
 </style>

@@ -92,6 +92,8 @@ export default {
   --body-text-style: normal;
   --body-text-weight-bold: 700;
 
+  --font-scalar: 1.35;
+
   --base-color: #a1a1a1;
   --white: #fafafa;
   --black: #101010;
@@ -118,6 +120,7 @@ export default {
   //blink / webkit
 ::-webkit-scrollbar {
   width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg);
@@ -132,11 +135,14 @@ export default {
 
 // code highlighting
 @import "https://fonts.googleapis.com/css2?family=Fira+Code&display=swap";
-code,
+code{
+  font-family: 'Fira Code', monospace !important;
+  font-size: 0.87rem !important;
+}
 pre code,
 pre code span{
   font-family: 'Fira Code', monospace !important;
-  font-size: 0.78rem !important;
+  font-size: 0.75rem !important;
 }
 .token.keyword, .token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string, .token.variable, .token.boolean, .token.number{
   color: var(--accent-color) !important;
@@ -326,6 +332,87 @@ height: 100vh;
     -webkit-text-stroke-color: var(--accent-color);
   }
 }
+
+.articlebody,
+.markdown,
+.singlepagecontent{
+  flex-grow: 1;
+    text-align: left;
+    padding: 1.5rem;
+    margin: auto;
+      //background: red;
+      width: 100%;
+      max-width: 50em;
+      max-width: calc(60ch + 3rem);
+    & img{
+      width: auto !important;
+      height: auto !important;
+      max-width: calc(100vw - .666em);
+      max-height: 100vh;
+      margin-left: 50%;
+      transform:translateX(-50%);
+
+    }
+    hr{
+      margin: 25%;
+      margin: 0 calc(50% - 1rem);
+      text-align: center;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--accent-text-font);
+      font-style: var(--accent-text-style);
+      font-weight: var(--accent-text-weight-bold);
+      color: var(--accent-color);
+      //padding: .3em .3em .2em .3em;
+      //margin: 0 .5em;
+      text-transform: none;
+      //border-radius: 9000px;
+      //border: var(--border-width) solid var(--content-color);
+      //transform: translate(-3rem, 0);
+      // &:before{
+      //   content:"";
+      //   display: inline-block;
+      //   //white-space: nowrap;
+      //   margin: calc(0.5em - var(--border-width)) 0.5rem;
+      //   width: .5rem;
+      //   font-size: 0.7em;
+      //   border: calc( var(--border-width) / 2 ) solid var(--content-color);
+      //
+      //
+      // }
+    }
+    h6{
+
+    }
+    h5{
+      font-family: var(--body-text-font);
+      font-style: var(--body-text-style);
+      font-weight: var(--body-text-weight-bold);
+    }
+    h4{
+      font-family: var(--body-text-font);
+      font-style: var(--body-text-style);
+      font-weight: var(--body-text-weight-bold);
+    }
+    h3{
+      font-size: calc( var(--font-scalar) * 1rem);
+    }
+    h2{
+      font-size: calc(  var(--font-scalar) * var(--font-scalar) * 1rem);
+    }
+    code{
+      color: var(--white);
+      display: inline-block;
+      background: #2b2b2b;
+      padding: .1em .3em;
+      border-radius: .3em;
+    }
+    table{
+      width: 100%;
+    }
+
+}
+
 
 @keyframes marquee {
     0% {

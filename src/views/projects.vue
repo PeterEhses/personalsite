@@ -55,7 +55,7 @@ export default {
         <p>Hier sind meine Projekte.</p>
         <p><hr/></p>
         <p>Kann ich dir helfen?</p>
-         <a class="button" href="./kontakt">Find' es heraus!</a>`,
+         <a class="button" href="./about">Find' es heraus!</a>`,
         id: "ball"
       },
       endText: {
@@ -73,7 +73,7 @@ export default {
           </svg>
           <p><hr/></p>
           <p>Kann ich dir helfen?</p>
-           <a class="button" href="./kontakt">Find' es heraus!</a>`,
+           <a class="button" href="./about">Find' es heraus!</a>`,
         id: "egg"
       }
     }
