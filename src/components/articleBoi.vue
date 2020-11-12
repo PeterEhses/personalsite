@@ -34,11 +34,8 @@
 </template>
 
 <script>
-import Prism from 'prismjs'
 
-import '../assets/prism-a11y-dark.css'
-import 'prismjs/plugins/autoloader/prism-autoloader.min.js'
-import VueMarkdown from 'vue-markdown'
+const VueMarkdown = () => import('vue-markdown')
 import footerBoi from "@/components/footer.vue"
 import gallery from "@/components/gallery.vue"
 export default {
@@ -55,24 +52,35 @@ export default {
     }
   }, computed: {
     heroBG: function(){
-      let gray = `linear-gradient(
-      rgba(0, 0, 0, 0.15),
-      rgba(0, 0, 0, 0.15)
-    ),`
-      gray = "";
-      console.log(this.postdata.data.header_image.data)
-      let url = 'url('+
-      "https://directus."+
-      this.$host+
-      this.postdata.data.header_image.data.asset_url.replace(/  */g,'%20')+
-      "?key=hero"+
-      ')';
-      console.log(url)
-      return gray + url
+
+      return "url("+this.imageNameToUrl(this.postdata.data.header_image.data.asset_url, 'hero', true)+")"
     }
   },
 
   methods: {
+    imageNameToUrl(name,key,isHero=false){
+      let apiPath = "/api/assets/"
+      if(isHero){
+        apiPath = ""
+      }
+      return "https://directus."+
+              this.$host+
+              apiPath+
+              name.replace(/  */g,'%20')+
+              "?key="+key
+    },
+    imageMaker(str, alt, url, title, mode){
+      console.log("snatched me some markdown:")
+      console.log(str, alt, url, title, mode)
+      // console.dir(arguments)
+      let fullUrl = this.imageNameToUrl(url,'gallery')
+      let htmlString = '<img src="'
+                        +fullUrl
+                        +'" alt="'
+                        +alt
+                        +'">'
+      return htmlString
+    },
     getPosts(collection, id="") {
       let that = this;
       if(id != ""){
@@ -82,6 +90,9 @@ export default {
         //console.log(data)
       that.postdata = data;
       if(data.data.body_markdown){
+        // eslint-disable-next-line
+        let findImagesRegex = /!\[(?<alt>[^\]]*)\]\((?<filename>.*?)(?=\"|\))(?<optionalpart>\".*\")?\)(?:\<\!\-\-(?<type>.*?)\-\-\>)?/g
+        data.data.body_markdown = data.data.body_markdown.replace(findImagesRegex, this.imageMaker)
         that.isMarkdown = true;
       } else {
         that.isMarkdown = false;
@@ -92,8 +103,11 @@ export default {
   },
   updated: function () {
     if(this.isMarkdown){
-      this.$nextTick(function(){
+      this.$nextTick(function(){ // import prism only when needed and attach to vue
         if(!this.$root._Prism){
+          let Prism =  require('prismjs')
+          require('../assets/prism-a11y-dark.css')
+          require('prismjs/plugins/autoloader/prism-autoloader.min.js')
           this.$root._Prism = Prism;
         }
         this.$root._Prism.highlightAll()
@@ -225,7 +239,7 @@ export default {
 
   .info{
     width: 100%;
-    height: 34vh;
+    height: auto;
     flex-shrink: 0;
     h2{
       border: none;
