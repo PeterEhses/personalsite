@@ -70,11 +70,16 @@ export default {
               "?key="+key
     },
     imageMaker(str, alt, url, title, mode){
+      if(typeof(mode) == 'undefined'){
+        mode = "imagendef"
+      }
       console.log("snatched me some markdown:")
       console.log(str, alt, url, title, mode)
       // console.dir(arguments)
       let fullUrl = this.imageNameToUrl(url,'gallery')
-      let htmlString = '<img src="'
+      let htmlString = '<img class="'
+                        +mode
+                        +'" src="'
                         +fullUrl
                         +'" alt="'
                         +alt
