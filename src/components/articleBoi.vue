@@ -77,13 +77,26 @@ export default {
       console.log(str, alt, url, title, mode)
       // console.dir(arguments)
       let fullUrl = this.imageNameToUrl(url,'gallery')
-      let htmlString = '<img class="'
+      let imageHtmlString = '<img class="'
                         +mode
                         +'" src="'
                         +fullUrl
                         +'" alt="'
                         +alt
                         +'">'
+      let titleHtmlString = ""
+      if(typeof(title) !== 'undefined'){
+        titleHtmlString = '<figcaption>'
+                          +title
+                          +'</figcaption>'
+      }
+
+      let htmlString = '<figure class="'
+                        +mode
+                        +'">'
+                        +imageHtmlString
+                        +titleHtmlString
+                        +'</figure>'
       return htmlString
     },
     getPosts(collection, id="") {
@@ -148,9 +161,10 @@ export default {
   z-index: 90002;
   position: fixed;
   left: 0;
-  top: 1.5rem;
-  width: calc(100% - .666em);
-  height: calc(100vh - 1.5rem);
+  top: var(--article-indent-top);
+  margin-left: var(--article-indent-left);
+  width: calc(100% - var(--article-indent-left));
+  height: calc(100vh - var(--article-indent-top));
   background-image: url("/img/img-noise-256x256.png");
   background-attachment: local;
   background-blend-mode: lighten;
@@ -165,7 +179,7 @@ export default {
   border-radius: 10rem 0 0 0;
   border-left: var(--border-width) solid var(--content-color);
   border-top: var(--border-width) solid var(--content-color);
-  margin-left: .666rem;
+
 
 
   #articleBack{

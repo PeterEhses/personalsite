@@ -93,6 +93,13 @@ export default {
   --body-text-weight-bold: 700;
 
   --font-scalar: 1.35;
+  --article-indent-left: .666rem;
+  --article-indent-top: 1.5rem;
+  --article-text-width: 60ch;
+  --article-margin-default: 1.5rem;
+  --article-image-ratio: 1 / 3; // as in 1 / ratio of bodx width is taken up by indenting image
+  --article-image-indent: calc(var(--article-image-ratio) * var(--article-text-width));
+  --article-overflow-width: calc(50vw - (var(--article-text-width)/2) - (var(--article-margin-default)*2) - var(--article-indent-left) + var(--article-image-indent));
 
   --base-color: #a1a1a1;
   --white: #fafafa;
@@ -342,23 +349,49 @@ height: 100vh;
     margin: auto;
       //background: red;
       width: 100%;
-      max-width: 50em;
-      max-width: calc(60ch + 3rem);
-    & img{
+      max-width: 60em;
+      max-width: calc(var(--article-text-width) + var(--article-margin-default) + var(--article-margin-default));
+
+
+    & :not(figure) > img{
       width: auto !important;
       height: auto !important;
-      max-width: calc(100vw - .666em);
+      max-width: calc(100vw - var(--article-indent-left));
       max-height: 100vh;
       margin-left: 50%;
       transform:translateX(-50%);
+      //float: left;
 
     }
+    figure{
+      width: var(--article-image-indent);
+      float: left;
+      margin: 0;
+      clear: both;
+      img{
+        max-width: var(--article-overflow-width);
+        max-width: min(var(--article-overflow-width), var(--article-text-width));
+        max-height: 75vh;
+        float: right;
+        //--article-image-indent
+        margin: var(--article-margin-default);
+      }
+      &:nth-of-type(even){
+        float: right;
+        img{
+          float: left;
+        }
+      }
+    }
+
+
     hr{
       margin: 25%;
       margin: 0 calc(50% - 1rem);
       text-align: center;
     }
     h1, h2, h3, h4, h5, h6 {
+      width: 100%;
       font-family: var(--accent-text-font);
       font-style: var(--accent-text-style);
       font-weight: var(--accent-text-weight-bold);
@@ -366,6 +399,7 @@ height: 100vh;
       //padding: .3em .3em .2em .3em;
       //margin: 0 .5em;
       text-transform: none;
+      clear: both; // image flow clear
       //border-radius: 9000px;
       //border: var(--border-width) solid var(--content-color);
       //transform: translate(-3rem, 0);
