@@ -37,7 +37,7 @@ export default {
     },
     textUpdate(dimensions){
       //
-      console.log(dimensions)
+      //console.log(dimensions)
       let pathstr = ""
       let dimsmallest = Math.min(dimensions.w, dimensions.h)
       // move to 1/2, 0

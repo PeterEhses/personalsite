@@ -21,10 +21,10 @@
     </div>
 
 
-    <vue-markdown class="markdown" v-if="postdata.data && isMarkdown" :quotes="'„“‚‘'">
+    <vue-markdown class="markdown hyphenate" v-if="postdata.data && isMarkdown" :quotes="'„“‚‘'">
       {{postdata.data.body_markdown}}
     </vue-markdown>
-    <div id="content" class="articlebody" v-html="postdata.data.body" v-if="postdata.data && !isMarkdown">
+    <div id="content" class="articlebody hyphenate" v-html="postdata.data.body" v-if="postdata.data && !isMarkdown">
     </div>
 
 
@@ -130,8 +130,29 @@ export default {
         }
         this.$root._Prism.highlightAll()
       })
-    }
 
+    }
+    // let that = this
+    // window.Hyphenopoly.hyphenators["HTML"].then(
+    // function (enHyphenator) {
+    //   enHyphenator(that.$el);
+    // })
+    // ()=>{console.log("AAA"+arguments)}
+    // // DUMB HYPHENATION HACK REMOVE ONCE CHROME DOESN'T SUCK ANYMORE
+    // // eslint-disable-next-line
+    // window.Hyphenopoly = {
+    //             require: {
+    //                 "de": "Silbentrennungsalgorithmus",
+    //                 //"en-us": "Supercalifragilisticexpialidocious"
+    //             },
+    //             setup: {
+    //                 selectors: {
+    //                     ".markdown": {}
+    //                 }
+    //             }
+    //         };
+    //
+    // require('hyphenopoly/Hyphenopoly_Loader.js')
   },
   mounted: function(){
     this.getPosts(this.$route.meta.collection, this.$route.params.id)

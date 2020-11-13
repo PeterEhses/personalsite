@@ -4,6 +4,22 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 
+// const Hyphenopoly = {
+//     "require": {
+//         "de": "Silbentrennungsalgorithmus",
+//         "en-us": "antidisestablishmentarianism"
+//     },
+//     "paths": {
+//         // Path to the directory of pattern files
+//         "patterndir": "./assets/patterns/",
+//         // Path to the directory where the other ressources are stored
+//         "maindir": "./assets/"
+//     }
+// };
+// window.Hyphenopoly = Hyphenopoly;
+// require("./Hyphenopoly_Loader");
+//
+// console.log(Hyphenopoly.hyphenators);
 Vue.config.productionTip = false
 import VueGtag from "vue-gtag";
 
