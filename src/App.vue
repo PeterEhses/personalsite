@@ -383,10 +383,6 @@ hr {
     word-wrap: break-word;
     -ms-word-break: break-all;
     word-break: break-word;
-    -ms-hyphens: manual;
-    -moz-hyphens: manual;
-    -webkit-hyphens: manual;
-    hyphens: manual;
     -ms-hyphens: auto;
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
