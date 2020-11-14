@@ -121,11 +121,10 @@ export default {
     --article-indent-top: 1.5rem;
     --article-text-width: 60ch;
     --article-margin-default: 1.5rem;
-    --article-image-ratio: 1 / 3; // as in 1 / ratio of bodx width is taken up by indenting image
-    --article-image-max-width-ratio: 3 / 5;
-    --article-image-indent: calc(var(--article-image-ratio) * var(--article-text-width));
-    --acticle-image-max-width: calc(var(--article-text-width) * var(--article-image-max-width-ratio));
-    --article-overflow-width: calc(50vw - (var(--article-text-width)/2) - (var(--article-margin-default)*3) - var(--article-indent-left) + var(--article-image-indent));
+    --article-safe-space-scalar: 3;
+    --article-image-ratio: 3 / 5; // as in 1 / ratio of bodx width is taken up by indenting image
+    --article-image-max-width-ratio: 4 / 5;
+    --article-image-max-height-default: 66vh;
 
     --base-color: #a1a1a1;
     --white: #fafafa;
@@ -140,6 +139,19 @@ export default {
     --content-color: #fafafa;
     overflow: hidden;
 }
+
+// SELECTION
+
+::-moz-selection { /* Code for Firefox */
+  color: var(--content-color);
+  background: var(--accent-color);
+}
+
+::selection {
+  color: var(--content-color);
+  background: var(--accent-color);
+}
+
 * {
     //Scrollbar style
 
@@ -378,6 +390,17 @@ hr {
 .articlebody,
 .markdown,
 .singlepagecontent {
+
+  // CALCS + VARS
+
+  --article-image-indent: calc(var(--article-image-ratio) * var(--article-text-width));
+  --acticle-image-max-width: calc(var(--article-text-width) * var(--article-image-max-width-ratio));
+  --article-overflow-width: calc(50vw - (var(--article-text-width)/2) - (var(--article-margin-default)*3) - var(--article-indent-left) + var(--article-image-indent));
+  --article-safe-space: calc(var(--article-margin-default) * var(--article-safe-space-scalar));
+
+  // ACTUAL CSS
+
+
     white-space: normal;
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -390,11 +413,11 @@ hr {
     line-height: var(--article-line-height);
     flex-grow: 1;
     text-align: left;
-    padding: 1.5rem;
+    padding: var(--article-safe-space);
     margin: auto;
     width: 100%;
     max-width: 60em;
-    max-width: calc(var(--article-text-width) + var(--article-margin-default) + var(--article-margin-default));
+    max-width: calc(var(--article-text-width) + var(--article-safe-space) + var(--article-safe-space));
 
     & :not(figure) > img {
         width: auto !important;
@@ -404,22 +427,85 @@ hr {
         margin-left: 50%;
         transform: translateX(-50%);
     }
-    figcaption {
-        font-size: calc(1em / var(--font-scalar));
-        font-family: var(--accent-text-font);
-        font-style: var(--accent-text-style);
-        font-weight: var(--accent-text-weight-bold);
-        color: var(--accent-color);
-    }
+
     figure {
+
+      clear: both;
+      box-sizing: border-box;
+      width: 100%;
+
+      padding: var(--article-margin-default)  calc(var(--article-margin-default) * 2);
+      margin: 0;
+      display: table;
+      margin-left: auto;
+      margin-right: auto;
+      figcaption {
+          padding-top: 0.75em;
+          display: run-in;
+          font-size: calc(1em / var(--font-scalar));
+          font-family: var(--accent-text-font);
+          font-style: var(--accent-text-style);
+          font-weight: var(--accent-text-weight-bold);
+          color: var(--accent-color);
+      }
+      img{
+
+        margin: auto;
+        max-width: 100%;
+        max-height: var(--article-image-max-height-default);
+        display: block;
+
+      }
+    }
+    figure.fill,
+    figure.fill100,
+    figure.fillmax {
+        position: relative;
+        left: calc(50%);
+        transform: translate( -50%, 0);
+        width: calc(100vw - var(--article-indent-left));
+        height: auto;
+        max-height: none;
+        padding-left: 0;
+        padding-right: 0;
+        img {
+          width: 100%;
+          height: auto;
+          max-height: none;
+          margin-left: 0;
+          margin-right: 0;
+        }
+        figcaption {
+          margin: auto;
+          max-width: 60em;
+          max-width: calc(var(--article-text-width) + var(--article-safe-space) + var(--article-safe-space));
+        }
+    }
+
+    figure.fill {
+      img {
+        max-height: var(--article-image-max-height-default);
+        object-fit: cover;
+      }
+    }
+    figure.fill100 {
+      img {
+        max-height: 100vh;
+        object-fit: cover;
+      }
+    }
+
+    figure.side{
+      display: block;
+      padding: 0;
         width: var(--article-image-indent);
         float: left;
         margin: 0 0 calc(var(--article-margin-default) / 3);
-        clear: both;
+
         img {
             max-width: var(--article-overflow-width);
-            max-width: min(var(--article-overflow-width), var(--acticle-image-max-width));
-            max-height: 66vh;
+            max-width: max(min(var(--article-overflow-width), var(--acticle-image-max-width)), var(--article-image-indent));
+            max-height: var(--article-image-max-height-default);
             float: right;
             //--article-image-indent
             margin: var(--article-margin-default) calc(var(--article-margin-default)*2) calc(var(--article-margin-default) / 2) calc(var(--article-margin-default)*2);
@@ -452,6 +538,8 @@ hr {
         }
 
     }
+
+
 
     hr {
         margin: 0 calc(50% - 1rem);
@@ -505,6 +593,15 @@ hr {
     h2 {
         font-size: calc(var(--font-scalar) * var(--font-scalar) * 1rem);
     }
+    a {
+      font-family: var(--body-text-font);
+      font-style: var(--body-text-style);
+      font-weight: var(--body-text-weight);
+      text-transform: none;
+    }
+    strong {
+      font-weight: var(--body-text-weight-bold);
+    }
     code {
         color: var(--white);
         display: inline-block;
@@ -512,8 +609,44 @@ hr {
         padding: 0.1em 0.3em;
         border-radius: 0.3em;
     }
+    blockquote {
+      border-left: var(--border-width) solid var(--accent-color);
+      margin: 0;
+      padding: 0 var(--article-margin-default);
+    }
+    mark {
+      padding: 0.1em 0.3em;
+      border-radius: 0.3em;
+      color: var(--content-color);
+      background-color: var(--accent-color);
+    }
+    dt {
+      font-family: var(--body-text-font);
+      font-style: var(--body-text-style);
+      font-weight: var(--body-text-weight-bold);
+      color: var(--accent-color);
+    }
     table {
+        table-layout: auto;
+        border-collapse: separate;
+        border-spacing: var(--border-width);
         width: 100%;
+        tr:nth-of-type(even) {
+          background-image: linear-gradient(var(--accent-color) -7000%, rgba(0,0,0,0) 1000%);
+        }
+        thead {
+          background-image: linear-gradient(var(--accent-color) -7000%, rgba(0,0,0,0) 1000%);
+          font-weight: var(--body-text-weight-bold);
+          color: var(--accent-color);
+        }
+        td, th {
+          vertical-align: top;
+          hyphens: manual;
+          white-space: normal;
+          word-break:keep-all;
+          padding: 0.1em 0.3em;
+          //white-space: nowrap;
+        }
     }
 
 }

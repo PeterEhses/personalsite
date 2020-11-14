@@ -1,6 +1,6 @@
 <template>
   <div class="gallroot" v-if="images.length > 0">
-    <img :src="image.url+image.thumb" alt="" class="gallimg" v-for="image in images" :key="image.url">
+    <img :src="image.url+thumb" alt="" class="gallimg" v-for="image in images" :key="image.url">
   <!-- <div class="gallimg" v-for="image in images" :key="image.url" :style="{background: 'url('+image.url+image.thumb+')'}">
      {{image}}
    </div> -->
@@ -21,8 +21,7 @@ export default {
           for(let i = 0; i < this.data.length; i++){
             let data = {}
             data.url = baseURL+this.data[i].directus_files_id.data.asset_url
-            data.thumb = "?key=thumbnail"
-            data.full = "?key=gallery"
+
             newData.push(data)
             newData.push(data)
             newData.push(data)
@@ -34,6 +33,11 @@ export default {
         }
 
       }
+  }, data: function(){
+    return {
+      thumb: "?key=thumbnail",
+      full: "?key=gallery",
+    }
   }
 }
 

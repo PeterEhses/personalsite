@@ -73,8 +73,6 @@ export default {
       if(typeof(mode) == 'undefined'){
         mode = "imagendef"
       }
-      console.log("snatched me some markdown:")
-      console.log(str, alt, url, title, mode)
       // console.dir(arguments)
       let fullUrl = this.imageNameToUrl(url,'gallery')
       let imageHtmlString = '<img class="'
@@ -104,12 +102,13 @@ export default {
       if(id != ""){
         id = "/"+id
       }
-      this.$api.getItems(this.$api.prefix+collection+id,{fields:["*","header_image.data.full_url", "gallery.directus_files_id.data","video_embeds.directus_files_id.data"],sort: "-created_on"}).then(data => {
+      this.$api.getItems(this.$api.prefix+collection+id,{fields:["*","header_image.data.full_url", "gallery.directus_files_id.data","video_embeds.directus_files_id.*"],sort: "-created_on"}).then(data => {
         //console.log(data)
       that.postdata = data;
+      console.dir(data)
       if(data.data.body_markdown){
         // eslint-disable-next-line
-        let findImagesRegex = /!\[(?<alt>[^\]]*)\]\((?<filename>.*?)(?=\"|\))(?<optionalpart>\".*\")?\)(?:\<\!\-\-(?<type>.*?)\-\-\>)?/g
+        let findImagesRegex = /!\[(?<alt>[^\]]*)\]\((?<filename>.*?)(?=\"|\))(?:\"(?<optionalpart>.*)\")?\)(?:\<\!\-\-(?<type>.*?)\-\-\>)?/g
         data.data.body_markdown = data.data.body_markdown.replace(findImagesRegex, this.imageMaker)
         that.isMarkdown = true;
       } else {
