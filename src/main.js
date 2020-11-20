@@ -4,6 +4,11 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 
+// video players
+import VuePlayerPlugin, { Player } from 'vue-youtube-iframe-api'
+Vue.use(VuePlayerPlugin)
+Vue.component('yt-player', Player)
+
 // const Hyphenopoly = {
 //     "require": {
 //         "de": "Silbentrennungsalgorithmus",
@@ -70,7 +75,7 @@ new Vue({
 
 // color background stuff
 
-let dayMillis = (24*60*60*1000)
+//let dayMillis = (24*60*60*1000)
 
 function hexToHSL(H) {
   // Convert hex to RGB first
@@ -148,47 +153,83 @@ function segmentNormalize(start, end, pos){
 
   return posnorm;
 }
-let sunrise = computeSunrise()
-let sunset = computeSunrise(false)
-let midday = lerp(sunrise, sunset, .5)
+
+let lerpstretch = .2
+let eventstretch = 0
+let combinedstretch = lerpstretch + eventstretch
 
 let onehour = (2*60*60*1000)
+
+let sunrise = computeSunrise() + combinedstretch
+let sunset = computeSunrise(false) - combinedstretch
+let midday = lerp(sunrise, sunset, .5)
+console.log('sunrise: '+sunrise+' midday: '+midday+' sunset: '+sunset)
+
 function getTimeCol(nowTime){
   let col1;
   let col2;
   let step;
+  let segment = "";
   if(nowTime < sunrise){
+    segment = "pre sunrise"
     col1 = "#303030"
     col2 = "#f7e5b2"
-    step = segmentNormalize(sunrise-onehour/3,sunrise+onehour, nowTime)
+    step = segmentNormalize(sunrise-onehour*combinedstretch,sunrise-onehour*eventstretch, nowTime)
   }else if(nowTime < midday){
+    segment = "post sunrise"
     col1 = "#f7e5b2"
     col2 = "#f1eddc"
-    step = segmentNormalize(sunrise+onehour,sunrise+onehour*3, nowTime)
-  }else if(nowTime < sunset-onehour){
+    step = segmentNormalize(sunrise+onehour*eventstretch,sunrise+onehour*combinedstretch, nowTime)
+  }else if(nowTime < sunset){
+    segment = "pre sunset"
     col1 = "#f1eddc"
     col2 = "#F09A92"
-    step = segmentNormalize(sunset-onehour*3,sunset-onehour, nowTime)
+    step = segmentNormalize(sunset-onehour*combinedstretch,sunset-onehour*eventstretch, nowTime)
   }  else {
+    segment = "post sunset"
     col1 = "#F09A92"
     col2 = "#303030"
-    step = segmentNormalize(sunset-onehour,sunset+onehour/3, nowTime)
+    step = segmentNormalize(sunset+onehour*eventstretch,sunset+onehour*combinedstretch, nowTime)
   }
 
   let color = lerpColor(col1, col2, step);
    //color = lerpColor("#F09A92", "#303030", 1);
   //console.log({now: nowTime, sunrise: sunrise, midday: midday, sunset: sunset, col1: col1, col2: col2, step: step})
-  //console.log(color)
+  //
+  console.log('millis%day: '+nowTime+' current segment: '+segment+' segment lerp progress: '+step)
   return color //'#f1eddc'//color
 
 }
 
+function changeThemeColor(color) {
+    let metaThemeColor = document.querySelector("meta[name=theme-color]");
+    metaThemeColor.setAttribute("content", color);
+    metaThemeColor = document.querySelector("meta[name=msapplication-navbutton-color]");
+    metaThemeColor.setAttribute("content", color);
+    metaThemeColor = document.querySelector("meta[name=apple-mobile-web-app-status-bar-style]");
+    metaThemeColor.setAttribute("content", color);
+
+}
+
+let todayMillis = new Date(new Date().toISOString().split("T")[0]).getTime()
+
 import computeSunrise from '@/external_code/sun.js'
 let domBody = document.documentElement
-function updateBG(){
-  let bgnew = getTimeCol(Date.now()%dayMillis)
+window.updateBG = function(){
+  let bgnew
+    if(window.theme_mode && window.theme_mode == "day"){
+      bgnew = "#f1eddc"
+    } else if(window.theme_mode && window.theme_mode == "night"){
+      bgnew = "#303030"
+    } else {
+      let nowMillis = Date.now()-todayMillis
+      //console.log(nowMillis)
+      bgnew = getTimeCol(nowMillis)
+    }
+
+
   let contentCol = "var(--white)"
-  console.log(hexToHSL(bgnew).l);
+  //console.log(hexToHSL(bgnew).l);
   if(hexToHSL(bgnew).l > 50){
     contentCol = "var(--black)"
   }
@@ -197,13 +238,13 @@ function updateBG(){
     "--content-color": contentCol,
   }
 
-
+  changeThemeColor(bgnew);
 
   for(const [key, value] of Object.entries(styles)){
         domBody.style.setProperty(key, value);
       }
   //requestAnimationFrame(updateBG);
 }
-updateBG()
-setInterval(updateBG,5000);
+window.updateBG()
+setInterval(window.updateBG,5000);
 //requestAnimationFrame(updateBG);

@@ -2,6 +2,7 @@
 <div
 class="bgBoi"
 v-bind:style="{backgroundImage: 'url(' + fileLoaded + ')' }"
+@contextmenu.prevent="pass"
 >
   <div
   class="coverBoi"
@@ -125,6 +126,15 @@ export default {
 }
 
 .coverBoi{
+  -webkit-user-select: none;
+
+-khtml-user-select: none;
+
+-moz-user-select: none;
+
+-ms-user-select: none;
+
+user-select: none;
   border-radius: 9000px;
   width: 100%;
   height: 100%;

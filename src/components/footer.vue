@@ -25,7 +25,8 @@ components:{
   flex-grow: 0;
   flex-shrink: 0;
 
-  height: 2.5rem;
+  min-height: 2.5rem;
+  max-height: 2.7rem;
   position: relative;
   display: flex;
   justify-content: space-between;

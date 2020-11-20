@@ -18,11 +18,11 @@
         </div>
       </router-link>
       <nav>
-        <router-link to="/about" class="nav">Kontakt</router-link>
+        <router-link to="/about" class="nav" title="Kontakt">Kontakt</router-link>
         <hr />
-        <router-link to="/projects" class="nav">Projekte</router-link>
+        <router-link to="/projects" class="nav" title="Projekte">Projekte</router-link>
         <hr />
-        <router-link to="/about" class="nav">Blog</router-link>
+        <router-link to="/about" class="nav" title="Blog">Blog</router-link>
 
 
       </nav>
@@ -32,8 +32,9 @@
     <router-view class="router-content" />
     <cookies />
     <footerBoi />
-
+    <themeToggle/>
   </div>
+
 
 </div>
 </template>
@@ -41,7 +42,7 @@
 <script>
 import footerBoi from "@/components/footer.vue"
 import cookies from "@/components/cookies.vue"
-
+import themeToggle from "@/components/themeToggle.vue"
 // // DUMB HYPHENATION HACK REMOVE ONCE CHROME DOESN'T SUCK ANYMORE
 // // eslint-disable-next-line
 // var Hyphenopoly = {
@@ -67,7 +68,8 @@ export default {
   components: {
 
     footerBoi,
-    cookies
+    cookies,
+    themeToggle
   },
   // mounted() {
   //     this.$nextTick(function(){
@@ -126,8 +128,11 @@ export default {
     --article-image-max-width-ratio: 4 / 5;
     --article-image-max-height-default: 66vh;
 
+    //--gallery-coverlist-items: ; // unused
+
     --base-color: #a1a1a1;
     --white: #fafafa;
+    --dark: #333;
     --black: #101010;
     --bg: #333;
     --neutral-bg: var(--bg);
@@ -138,6 +143,13 @@ export default {
     line-height: 1.33;
     --content-color: #fafafa;
     overflow: hidden;
+
+    // calculated variables
+
+    --article-image-indent: calc(var(--article-image-ratio) * var(--article-text-width));
+    --acticle-image-max-width: calc(var(--article-text-width) * var(--article-image-max-width-ratio));
+    --article-overflow-width: calc(50vw - (var(--article-text-width)/2) - (var(--article-margin-default)*3) - var(--article-indent-left) + var(--article-image-indent));
+    --article-safe-space: calc(var(--article-margin-default) * var(--article-safe-space-scalar));
 }
 
 // SELECTION
@@ -206,6 +218,7 @@ pre code span {
 //
 
 .button {
+
     padding: 0.5rem 1rem;
     font-size: 1rem;
     color: var(--content-color);
@@ -216,6 +229,14 @@ pre code span {
     border: var(--border-width) solid var(--accent-color);
     border-radius: 9000px;
     transition: color var(--transition-time);
+    word-wrap: keep-all;
+
+    // overflow centered
+    position: absolute;
+    white-space: pre;
+    left: 50%;
+    transform: translate(-50%, 0);
+
     &:hover {
         color: var(--accent-color);
     }
@@ -341,6 +362,9 @@ hr {
     overflow-y: overlay;
     overflow-x: hidden;
     height: 100vh;
+
+
+
 }
 #scrollhead {
     opacity: 0.5;
@@ -386,20 +410,22 @@ hr {
         -webkit-text-stroke-color: var(--accent-color);
     }
 }
-
 .articlebody,
 .markdown,
 .singlepagecontent {
 
   // CALCS + VARS
 
-  --article-image-indent: calc(var(--article-image-ratio) * var(--article-text-width));
-  --acticle-image-max-width: calc(var(--article-text-width) * var(--article-image-max-width-ratio));
-  --article-overflow-width: calc(50vw - (var(--article-text-width)/2) - (var(--article-margin-default)*3) - var(--article-indent-left) + var(--article-image-indent));
-  --article-safe-space: calc(var(--article-margin-default) * var(--article-safe-space-scalar));
+
 
   // ACTUAL CSS
 
+  // // accent border
+  //
+  // border-left: 1px dashed var(--accent-color);
+  // border-right: var(--border-width) dashed var(--accent-color);
+
+  // rest
 
     white-space: normal;
     overflow-wrap: break-word;
@@ -423,7 +449,7 @@ hr {
         width: auto !important;
         height: auto !important;
         max-width: calc(100vw - var(--article-indent-left));
-        max-height: 100vh;
+        max-height: 66vh;
         margin-left: 50%;
         transform: translateX(-50%);
     }
@@ -544,6 +570,7 @@ hr {
     hr {
         margin: 0 calc(50% - 1rem);
         text-align: center;
+        clear: both;
     }
     h1,
     h2,
@@ -598,11 +625,25 @@ hr {
       font-style: var(--body-text-style);
       font-weight: var(--body-text-weight);
       text-transform: none;
+      &:after{
+        content: " ↩";
+      }
+    }
+    sup,
+    .footnotes{
+      a:after{
+        content:""
+      }
+    }
+    ul,
+    ol{
+      clear: both;
     }
     strong {
       font-weight: var(--body-text-weight-bold);
     }
     code {
+        clear: both;
         color: var(--white);
         display: inline-block;
         background: #2b2b2b;
@@ -610,6 +651,7 @@ hr {
         border-radius: 0.3em;
     }
     blockquote {
+      clear: both;
       border-left: var(--border-width) solid var(--accent-color);
       margin: 0;
       padding: 0 var(--article-margin-default);
@@ -627,9 +669,10 @@ hr {
       color: var(--accent-color);
     }
     table {
+        clear: both;
         table-layout: auto;
         border-collapse: separate;
-        border-spacing: var(--border-width);
+        border-spacing: calc(var(--border-width)*2);
         width: 100%;
         tr:nth-of-type(even) {
           background-image: linear-gradient(var(--accent-color) -7000%, rgba(0,0,0,0) 1000%);

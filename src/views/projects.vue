@@ -6,7 +6,7 @@
   <postPill v-if="posts" class="tile" :style="{width: tileDimension}" v-for="post in posts" :postData="post" :key="post.id" />
 
   <contentPill v-if="greetingDimension.back" class="tile greeting" :postData="endText" :style="{width: greetingDimension.back}" />
-
+  <blockout v-if="$route.params.id"/>
   <articleBoi class="activeArticle" v-if="$route.params.id">
     {{ $route.params }}
   </articleBoi>
@@ -31,6 +31,7 @@
 import postPill from "@/components/postPill.vue";
 import contentPill from "@/components/contentPill.vue";
 import articleBoi from "@/components/articleBoi.vue";
+import blockout from '@/components/blockout';
 
 export default {
 
@@ -40,6 +41,7 @@ export default {
     postPill,
     contentPill,
     articleBoi,
+    blockout
   },
   data: function() {
     return {

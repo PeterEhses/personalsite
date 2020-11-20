@@ -5,27 +5,36 @@
       <p>🡐</p>
     </div>
     </router-link>
+    <gallery
+    :imagedata="postdata.data.gallery"
+    :videodata="postdata.data.video_embeds"
+    :hero="postdata.data.header_image"
+    v-if="postdata && postdata.data"
+    />
+    <!-- <div class="hero" v-if="postdata.data && postdata.data.header_image" :style="{background: heroBG}">
 
-    <div class="hero" v-if="postdata.data && postdata.data.header_image" :style="{background: heroBG}">
-        <!-- <h2>{{postdata.data.title}}</h2> -->
-    </div>
-    <div class="info" v-if="postdata.data">
-      <h2>{{postdata.data.title}}</h2>
-      <div class="projectLinks" v-if="postdata.data.external_links">
-        <div class="projectLink" v-for="(url, name) in postdata.data.external_links" :key="url">
-          <h4> {{name}} <a :href="url">{{postdata.data.project_link}}</a> </h4>
-        </div>
-      </div>
-
-      <gallery :data="postdata.data.gallery" v-if="postdata.data.gallery.length > 0"/>
-    </div>
+    </div> -->
+    <articleHeader
+    v-if="postdata.data"
+    :links="postdata.data.external_links"
+    :created_on="postdata.data.created_on"
+    :created_orig="postdata.data.created_original"
+    >{{postdata.data.title}}</articleHeader>
 
 
-    <vue-markdown class="markdown hyphenate" v-if="postdata.data && isMarkdown" :quotes="'„“‚‘'">
-      {{postdata.data.body_markdown}}
-    </vue-markdown>
-    <div id="content" class="articlebody hyphenate" v-html="postdata.data.body" v-if="postdata.data && !isMarkdown">
-    </div>
+
+    <vue-markdown
+    class="markdown hyphenate"
+    v-if="postdata.data && isMarkdown"
+    :quotes="'„“‚‘'"
+    > {{postdata.data.body_markdown}} </vue-markdown>
+
+    <div
+    id="content"
+    class="articlebody hyphenate"
+    v-html="postdata.data.body"
+    v-if="postdata.data && !isMarkdown"
+    ></div>
 
 
 
@@ -38,12 +47,14 @@
 const VueMarkdown = () => import('vue-markdown')
 import footerBoi from "@/components/footer.vue"
 import gallery from "@/components/gallery.vue"
+import articleHeader from "@/components/articleHeader.vue"
 export default {
   name: "articleBoi",
   components: {
     footerBoi,
     gallery,
-    VueMarkdown
+    VueMarkdown,
+    articleHeader
   },
   data: function(){
     return{
@@ -102,7 +113,7 @@ export default {
       if(id != ""){
         id = "/"+id
       }
-      this.$api.getItems(this.$api.prefix+collection+id,{fields:["*","header_image.data.full_url", "gallery.directus_files_id.data","video_embeds.directus_files_id.*"],sort: "-created_on"}).then(data => {
+      this.$api.getItems(this.$api.prefix+collection+id,{fields:["*","header_image.data.full_url", "gallery.directus_files_id.*","video_embeds.directus_files_id.*"],sort: "-created_on"}).then(data => {
         //console.log(data)
       that.postdata = data;
       console.dir(data)
@@ -178,7 +189,7 @@ export default {
 
   overflow-y: scroll;
   overflow-x: hidden;
-  z-index: 90002;
+  z-index: 90003;
   position: fixed;
   left: 0;
   top: var(--article-indent-top);
@@ -203,6 +214,7 @@ export default {
 
 
   #articleBack{
+    z-index: 2;
     padding: 0;
     margin: 0;
     position: absolute;
@@ -218,9 +230,14 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+
       & p{
+        position: relative;
+        top: 12%;
         color: var(--content-color);
-        font-family: heimat-sans, sans-serif;
+        font-family: var(--body-text-font);
+        font-style: var(--body-text-style);
+        font-weight: var(--body-text-weight);
         margin: 0;
         padding: 0;
         font-size: 2.5rem;
@@ -242,41 +259,34 @@ export default {
   // hero
 
 
-  .hero{
-    flex-grow: 0;
-    flex-shrink: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    //width: calc( 100% - 4.666rem);
-    height: calc(66vh - 3rem);
-    //margin: 2rem;
-    border-radius: 9rem 0 10rem 0;
-    //border: var(--border-width) solid var(--content-color);
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
-    & h3{
-      text-transform: uppercase;
-      background: none;
-      font-size: 3rem;
-      color: var(--white);
-      font-family: heimat-sans, sans-serif;
-      border: none;
-    }
-  }
+  // .hero{
+  //   flex-grow: 0;
+  //   flex-shrink: 0;
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   //width: calc( 100% - 4.666rem);
+  //   height: calc(66vh - 3rem);
+  //   //margin: 2rem;
+  //   border-radius: 9.9rem 0 10rem 0;
+  //   //border: var(--border-width) solid var(--content-color);
+  //   background-position: center !important;
+  //   background-repeat: no-repeat !important;
+  //   background-size: cover !important;
+  //   & h3{
+  //     text-transform: uppercase;
+  //     background: none;
+  //     font-size: 3rem;
+  //     color: var(--white);
+  //     font-family: heimat-sans, sans-serif;
+  //     border: none;
+  //   }
+  // }
 
 
   // info area: heading, links, ...
 
-  .info{
-    width: 100%;
-    height: auto;
-    flex-shrink: 0;
-    h2{
-      border: none;
-    }
-  }
+
 
   //project link
 
