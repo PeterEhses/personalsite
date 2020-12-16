@@ -9,7 +9,7 @@
    buttonDeclineText="Nee"
    >
      <div slot="message">
-    Darf diese Seite Cookies benutzen? <router-link to="datenschutz">Infos</router-link>
+    Darf diese Seite Cookies benutzen? <router-link to="./datenschutz">Infos</router-link>
   </div>
 </cookie-law>
  </div>
