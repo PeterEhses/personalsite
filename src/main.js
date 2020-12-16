@@ -193,10 +193,11 @@ function getTimeCol(nowTime){
   }
 
   let color = lerpColor(col1, col2, step);
+  window.timesegment = segment;
    //color = lerpColor("#F09A92", "#303030", 1);
   //console.log({now: nowTime, sunrise: sunrise, midday: midday, sunset: sunset, col1: col1, col2: col2, step: step})
   //
-  console.log('millis%day: '+nowTime+' current segment: '+segment+' segment lerp progress: '+step)
+  //console.log('millis%day: '+nowTime+' current segment: '+segment+' segment lerp progress: '+step)
   return color //'#f1eddc'//color
 
 }
@@ -231,7 +232,7 @@ window.updateBG = function(){
   let contentCol = "var(--white)"
   let accentCol = "var(--accent-color-night)"
   //console.log(hexToHSL(bgnew).l);
-  if(hexToHSL(bgnew).l > 50){
+  if(hexToHSL(bgnew).l > 60){
     contentCol = "var(--black)"
     accentCol = "var(--accent-color-daylight)"
   }

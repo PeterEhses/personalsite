@@ -17,6 +17,10 @@
     <articleHeader
     v-if="postdata.data"
     :links="postdata.data.external_links"
+    :team="postdata.data.team"
+    :tools="postdata.data.tools"
+    :deliverables="postdata.data.deliverables"
+    :role="postdata.data.role"
     :created_on="postdata.data.created_on"
     :created_orig="postdata.data.created_original"
     >{{postdata.data.title}}</articleHeader>

@@ -114,6 +114,7 @@ export default {
     },
     onYtReady: function(){
       this.$refs.yt.player.mute();
+      this.$refs.yt.player.playVideo();
     },
     onPlaying: function(){
       this.$emit('playing')

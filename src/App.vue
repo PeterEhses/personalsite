@@ -642,6 +642,18 @@ hr {
       text-transform: none;
       &:after{
         content: " ↩";
+        content: "";
+        //content: url('../assets/link-swoosh.svg');
+        display: inline-block;
+        position: relative;
+        mask: url('./assets/link-swoosh.svg') no-repeat;
+        background-color: var(--accent-color);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: .6em;
+        margin-left: .3em;
+        width: .7em;
       }
     }
     sup,
