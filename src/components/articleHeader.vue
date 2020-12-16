@@ -12,6 +12,16 @@
         <h2><slot></slot></h2>
       </title>
     </div>
+
+    <div class="secondary" v-if="links">
+      <!-- <div class="linkChrome">
+        find more here
+      </div> -->
+      <ul class="links">
+          <li v-for="(url, link) in links" :key="url">{{link}} <a :href="url" >{{url}}</a></li>
+
+      </ul>
+    </div>
     <div class="secondary teamrole" v-if="team || role">
       <div class="team" v-if="team">
         <h3>Team</h3>
@@ -22,26 +32,18 @@
         <p>{{role}}</p>
       </div>
     </div>
-    <div class="secondary" v-if="links">
-      <!-- <div class="linkChrome">
-        find more here
-      </div> -->
-      <ul class="links">
-          <li v-for="(url, link) in links" :key="url">{{link}} <a :href="url" >{{url}}</a></li>
-
-      </ul>
-    </div>
     <div class="chipsets" v-if="noEmptyTools || noEmptyDeliverables">
+      <div class="secondary chipset tools" v-if="noEmptyTools">
+        <h3>Tools</h3>
+        <chip v-for="tool in noEmptyTools" :key="tool">{{tool}}</chip>
+      </div>
+      <div class="secondary chipset deliverables" v-if="noEmptyDeliverables">
+        <h3>Deliverables</h3>
+        <chip v-for="deliverable in noEmptyDeliverables" :key="deliverable">{{deliverable}}</chip>
+      </div>
+    </div>
 
-    </div>
-    <div class="secondary chipset tools" v-if="noEmptyTools">
-      <h3>Tools</h3>
-      <chip v-for="tool in noEmptyTools" :key="tool">{{tool}}</chip>
-    </div>
-    <div class="secondary chipset deliverables" v-if="noEmptyDeliverables">
-      <h3>Deliverables</h3>
-      <chip v-for="deliverable in noEmptyDeliverables" :key="deliverable">{{deliverable}}</chip>
-    </div>
+
     <!-- <div class="projectLinks" v-if="postdata.data.external_links">
       <div class="projectLink" v-for="(url, name) in postdata.data.external_links" :key="url">
         <h4> {{name}} <a :href="url">{{postdata.data.project_link}}</a> </h4>
@@ -139,6 +141,7 @@ export default {
     // }
 
     .teamrole{
+      //border-top: var(--border-style);
       display: block;
         :first-child{
           &.team, &.role{
@@ -166,10 +169,12 @@ export default {
         }
       }
       p{
+        //font-size: calc(1em / var(--font-scalar));
         width: auto;
         display: inline-block;
         margin: 0;
         word-break: normal;
+        color: var(--accent-color);
       }
       h3{
         font-size: 1rem;
@@ -186,13 +191,14 @@ export default {
         font-family: var(--accent-text-font);
         font-style: var(--accent-text-style);
         font-weight: var(--accent-text-weight-bold);
+        color: var(--content-color);
 
         width: calc(50% - var(--article-text-width) / 2 - var(--article-margin-default));
         border-right: var(--border-width) solid var(--content-color);
       }
     }
     .chipsets{
-      margin-top: 1.5em;
+      margin: 1.5em 0;
     }
     .chipset{
       border: none;
@@ -275,11 +281,11 @@ export default {
       font-weight: var(--accent-text-weight-bold);
 
       width: calc(50% - var(--article-text-width) / 2 - var(--article-margin-default));
-      border-right: var(--border-width) solid var(--content-color);
+      border-right: var(--border-style);
     }
     .linkChrome{
       border: none;
-      border-left: var(--border-width) solid var(--content-color);
+      border-left: var(--border-style);
     }
   }
 </style>
