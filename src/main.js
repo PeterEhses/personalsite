@@ -229,13 +229,16 @@ window.updateBG = function(){
 
 
   let contentCol = "var(--white)"
+  let accentCol = "var(--accent-color-night)"
   //console.log(hexToHSL(bgnew).l);
   if(hexToHSL(bgnew).l > 50){
     contentCol = "var(--black)"
+    accentCol = "var(--accent-color-daylight)"
   }
   let styles = {
     "--bg": bgnew,
     "--content-color": contentCol,
+    "--accent-color": accentCol
   }
 
   changeThemeColor(bgnew);

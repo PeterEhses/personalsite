@@ -18,11 +18,11 @@
         </div>
       </router-link>
       <nav>
-        <router-link to="/about" class="nav" title="Kontakt">Kontakt</router-link>
+        <router-link to="/about" class="nav" title="Kontakt">About</router-link>
         <hr />
         <router-link to="/projects" class="nav" title="Projekte">Projekte</router-link>
-        <hr />
-        <router-link to="/about" class="nav" title="Blog">Blog</router-link>
+        <!-- <hr />
+        <router-link to="/about" class="nav" title="Blog">Blog</router-link> -->
 
 
       </nav>
@@ -136,7 +136,11 @@ export default {
     --black: #101010;
     --bg: #333;
     --neutral-bg: var(--bg);
-    --accent-color: #00b4bf;
+
+    --accent-color-daylight: #009ba4;
+    --accent-color-night: #00b4bf;
+
+    --accent-color: var(--accent-color-daylight);
     font-display: swap;
     --transition-time: 1s;
     --border-width: 2px;
@@ -363,8 +367,6 @@ hr {
     overflow-x: hidden;
     height: 100vh;
 
-
-
 }
 #scrollhead {
     opacity: 0.5;
@@ -444,6 +446,19 @@ hr {
     width: 100%;
     max-width: 60em;
     max-width: calc(var(--article-text-width) + var(--article-safe-space) + var(--article-safe-space));
+
+    .youtube{
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
 
     & :not(figure) > img {
         width: auto !important;

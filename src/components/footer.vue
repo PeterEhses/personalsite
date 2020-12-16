@@ -38,9 +38,11 @@ components:{
   a {
     font-size: 1rem;
     color: var(--content-color);
-    font-family: heimat-sans, sans-serif;
+    font-family: var(--body-text-font);
+    font-style: var(--body-text-style);
+    font-weight: var(--body-text-weight);
+    color: var(--content-color);
       &.router-link-exact-active {
-        font-family: heimat-sans, sans-serif;
           color: var(--accent-color);
       }
   }

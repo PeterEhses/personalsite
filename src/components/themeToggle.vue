@@ -128,7 +128,7 @@ export default {
     }
   }
   &.hidden{
-    opacity: .15;
+    opacity: .5;
     div{
       pointer-events: none;
     }
