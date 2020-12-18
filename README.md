@@ -24,7 +24,8 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## TODO
-- Pill sizing math is garbage. try to clear out all the conditionals and do actual math instead.
+- ~~Pill sizing math is garbage. try to clear out all the conditionals and do actual math instead.~~
+- make pill min size use css var
 - mobile everything
 - youtube iframe in body parser instead of code copy paste
 - side image case for directly after each other. how do other people do this?
@@ -41,3 +42,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - add support for hyperlinking through chips, general intearctivity for search / filter
 - make day cycle more synced to day. what is declination???
 - image captions fit to image
+- use light dark user preference

@@ -1,6 +1,6 @@
 <template>
 <!-- eslint-disable -->
-<div class="home tileContainer" :style="{height: tileContainerHeight}">
+<div class="home tileContainer" :style="{height: greetingDimension.tileContainerHeight}">
   <contentPill class="tile greeting" :postData="greetingText" :style="{width: greetingDimension.front}" />
 
   <postPill v-if="posts" class="tile" :style="{width: tileDimension}" v-for="post in posts" :postData="post" :key="post.id" />
@@ -46,21 +46,22 @@ export default {
   data: function() {
     return {
       collection: "projects",
-      baseSegments: 6,
+      // baseSegments: 7,
+      minSegmentWidth: 300, // segment width in px
       picdata: undefined,
       innerWidth: (window.innerWidth > 0) ? window.innerWidth : screen.width,
       postdata: [],
       greetingText: {
-        title: 'Moin,',
-        body: `<p> Ich bin Peter Ehses.</p>
-        <p>Ich bin ein intermedialer Designer aus Trier. Wenn ihr meint ich passe zu euren Projekten,</p>
-        <a class="button" href="mailto:info@peter-ehses.de">schreibt mir!</a>
+        title: 'Willkommen auf dem Spielplatz von Peter Ehses',
+        body: `<p> (Einem intermedialen Designer und manchmal Künstler aus Trier)</p>
+        <p></p>
+        <a class="button" href="mailto:info@peter-ehses.de">sagt hallo!</a>
          `,
         id: "ball"
       },
       endText: {
-        title: "es gibt mehr wo das her kam",
-        body: `<p>Aber gut Ding will Weile haben. Schaut bald wieder vorbei!</p>
+        title: "Gut Ding will Weile haben",
+        body: `<p>Deshalb schaut bald nochmal vorbei!</p>
           <svg  style="width: 60px; height: 50px;">
           <g   transform="translate(0,-233.49996)">
     <path
@@ -71,7 +72,7 @@ export default {
        d="m 50.915916,248.5948 c -0.103609,0.002 -0.205951,0.006 -0.3071,0.0112 -3.236789,0.18321 -7.878292,1.22143 -8.61115,2.565 -0.732856,1.34358 -0.366403,4.70242 0.244309,5.43528 0.610719,0.73286 2.687084,1.22155 2.687084,1.22155 0,0 -0.671688,2.32068 -2.870268,3.7864 2.62608,-0.73286 5.130016,-3.84751 5.130016,-3.84751 0,0 6.717755,0.18323 8.183479,-0.18319 1.465714,-0.36643 3.78644,-5.43533 3.420009,-6.3514 -0.354981,-0.88745 -4.664646,-2.69198 -7.876379,-2.63732 z m -2.587887,2.40804 c 0.104481,0 0.191922,0.0343 0.262178,0.1027 0.07025,0.0684 0.10537,0.15208 0.10537,0.25115 0,0.1369 -0.0056,0.34327 -0.01635,0.61888 -0.009,0.2738 -0.01335,0.47913 -0.01335,0.61604 0,0.045 -0.0064,0.13144 -0.01903,0.25933 -0.01083,0.11889 -0.01534,0.20983 -0.01354,0.27287 l 1.037687,-0.19454 c 0.4053,-0.0721 0.754764,-0.11344 1.048379,-0.12425 0.0072,-0.12069 0.01887,-0.44494 0.03508,-0.97273 0.0036,-0.13871 0.04601,-0.29813 0.127079,-0.47827 0.100872,-0.22156 0.215109,-0.33232 0.342999,-0.33232 0.09547,0 0.180143,0.0315 0.253997,0.0945 0.07926,0.0684 0.118906,0.154 0.118906,0.25667 0,0.027 -0.0035,0.0541 -0.0107,0.0812 h -1.71e-4 c -0.03603,0.13149 -0.05393,0.24589 -0.05393,0.34316 0,0.0505 -0.0054,0.12869 -0.01619,0.23497 -0.009,0.10447 -0.01354,0.18201 -0.01354,0.23245 0,0.17112 -0.009,0.42513 -0.02705,0.76198 -0.018,0.33686 -0.02705,0.59087 -0.02705,0.76199 0,0.1315 0.0099,0.32779 0.02973,0.58899 0.01984,0.26119 0.02973,0.45748 0.02973,0.58898 0,0.0991 -0.03513,0.18287 -0.10537,0.25132 -0.07025,0.0684 -0.157535,0.1027 -0.262017,0.1027 -0.106277,0 -0.198249,-0.0342 -0.275705,-0.1027 -0.07745,-0.0667 -0.116056,-0.14854 -0.116056,-0.24581 0,-0.1315 -0.0064,-0.32882 -0.01904,-0.59182 -0.01083,-0.263 -0.01619,-0.46016 -0.01619,-0.59166 0,-0.10267 0.0019,-0.19378 0.0055,-0.27303 -0.282809,0.0126 -0.632264,0.0568 -1.048379,0.13242 -0.345855,0.0631 -0.691833,0.12703 -1.037691,0.19188 -0.0036,0.12249 -0.01612,0.32695 -0.03774,0.61337 -0.018,0.25218 -0.02705,0.45838 -0.02705,0.6187 0,0.0991 -0.03513,0.18287 -0.10537,0.25132 -0.07025,0.0684 -0.157704,0.10271 -0.262179,0.10271 -0.104481,0 -0.19176,-0.0342 -0.262013,-0.10271 -0.07025,-0.0684 -0.105374,-0.15225 -0.105374,-0.25132 0,-0.18193 0.01529,-0.45385 0.04592,-0.81593 0.03242,-0.36206 0.04859,-0.63415 0.0486,-0.81608 0,-0.23058 0.0053,-0.57726 0.01619,-1.04021 0.01083,-0.46474 0.01635,-0.81246 0.01635,-1.04303 0,-0.0991 0.03513,-0.18271 0.105372,-0.25116 0.07025,-0.0684 0.157533,-0.1027 0.262015,-0.1027 z m 4.342139,0.15129 c 0.115291,0 0.214223,0.0388 0.297079,0.11623 0.08467,0.0774 0.127088,0.17187 0.127088,0.28355 0,0.11169 -0.04242,0.20627 -0.127088,0.28372 -0.08286,0.0774 -0.181788,0.11623 -0.297079,0.11623 -0.115277,0 -0.215254,-0.0388 -0.299915,-0.11623 -0.08466,-0.0774 -0.12708,-0.17203 -0.12708,-0.28372 0,-0.11168 0.04242,-0.2061 0.12708,-0.28355 0.08466,-0.0774 0.184638,-0.11623 0.299915,-0.11623 z m -0.08917,1.21588 c 0.108072,0 0.197103,0.0342 0.267349,0.1027 0.07025,0.0667 0.105374,0.15219 0.105374,0.25666 0,0.16033 -0.0089,0.36113 -0.02689,0.60252 -0.018,0.24137 -0.02705,0.44218 -0.02705,0.6025 0,0.10268 0.0029,0.2675 0.0082,0.49447 0.0072,0.22697 0.01069,0.39179 0.01069,0.49446 0,0.10449 -0.03513,0.19106 -0.105369,0.25951 -0.07025,0.0667 -0.15945,0.0999 -0.267525,0.0999 -0.108081,0 -0.197273,-0.0333 -0.26752,-0.0999 -0.07025,-0.0684 -0.105379,-0.15502 -0.105379,-0.25951 0,-0.10267 -0.0035,-0.26749 -0.01069,-0.49446 -0.0054,-0.22697 -0.0082,-0.39179 -0.0082,-0.49447 0,-0.16032 0.009,-0.36113 0.02705,-0.6025 0.018,-0.24139 0.02705,-0.44219 0.02705,-0.60252 0,-0.10447 0.03513,-0.19001 0.105376,-0.25666 0.07025,-0.0684 0.159443,-0.1027 0.267525,-0.1027 z"/>
   </g>
           </svg>
-          <p>Keine Zeit zu warten?</p>
+          <p>Lust zusammen zu arbeiten?</p>
            <a class="button" href="mailto:info@peter-ehses.de">schreibt mir!</a>`,
         id: "egg"
       }
@@ -104,75 +105,113 @@ export default {
     extraSpace: function() {
       return this.posts.length % this.numSegments
     },
-    tileContainerHeight: function() {
-      let mult = this.postsSplit
-
-      if (((this.numSegments - this.extraSpace) / 2 <= 1) || (!isNaN(this.extraSpace) && this.extraSpace < 1)) {
-        mult += 1;
-
-      }
-      if(this.postEven && this.numSegments == 2){
-        mult++
-      }
-      if(this.numSegments < 2){
-        mult += 1;
-      }
-      console.log('ps', this.postEven, this.postsSplit, this.numSegments, this.extraSpace, mult)
-      return "calc( ( 100vh - 8rem ) * " + mult + " )"
-    },
-    greetingDimension: function() {
-
-      if (this.numSegments == false) { // this.numSegments-this.extraSpace < 2
-        let dim = "calc(100% / "
-        dim += this.numSegments
-        dim += " * "
-        dim += this.numSegments - this.extraSpace
-        dim += " )"
-        return {
-          front: dim,
-          back: undefined
-        }
-      } else {
-        //console.log(this.extraSpace, Math.floor((this.numSegments-this.extraSpace)/2))
-        let dim = "calc(100% / "
-        dim += this.numSegments
-        dim += " * "
-        if (Math.ceil((this.numSegments - this.extraSpace) / 2) < 2) {
-          dim += Math.floor((this.numSegments + this.numSegments - this.extraSpace) / 2)
-        } else {
-          dim += Math.ceil((this.numSegments - this.extraSpace) / 2)
-        }
-        dim += " )"
-        let dim2 = "calc(100% / "
-        dim2 += this.numSegments
-        dim2 += " * "
-        dim2 += Math.floor((this.numSegments - this.extraSpace) / 2) || Math.ceil((this.numSegments + this.numSegments - this.extraSpace) / 2)
-        dim2 += " )"
-        if(this.postEven && this.segmentsEven){
-          return{
-            front: dim,
-            back: dim
-          }
-        }
-        return {
-          front: dim,
-          back: dim2
-        }
-      }
-
-    },
+    // tileContainerHeight: function() {
+    //   let mult = this.postsSplit
+    //
+    //   if (((this.numSegments - this.extraSpace) / 2 <= 1) || (!isNaN(this.extraSpace) && this.extraSpace < 1)) {
+    //     mult += 1;
+    //
+    //   }
+    //   if(this.postEven && this.numSegments == 2){
+    //     mult++
+    //   }
+    //   if(this.numSegments < 2){
+    //     mult += 1;
+    //   }
+    //   console.log('ps', this.postEven, this.postsSplit, this.numSegments, this.extraSpace, mult)
+    //   return "calc( ( 100vh - 8rem ) * " + mult + " )"
+    // },
+    // greetingDimension: function() {
+    //
+    //   if (this.numSegments == false) { // this.numSegments-this.extraSpace < 2
+    //     let dim = "calc(100% / "
+    //     dim += this.numSegments
+    //     dim += " * "
+    //     dim += this.numSegments - this.extraSpace
+    //     dim += " )"
+    //     return {
+    //       front: dim,
+    //       back: undefined
+    //     }
+    //   } else {
+    //     //console.log(this.extraSpace, Math.floor((this.numSegments-this.extraSpace)/2))
+    //     let dim = "calc(100% / "
+    //     dim += this.numSegments
+    //     dim += " * "
+    //     if (Math.ceil((this.numSegments - this.extraSpace) / 2) < 2) {
+    //       dim += Math.floor((this.numSegments + this.numSegments - this.extraSpace) / 2)
+    //     } else {
+    //       dim += Math.ceil((this.numSegments - this.extraSpace) / 2)
+    //     }
+    //     dim += " )"
+    //     let dim2 = "calc(100% / "
+    //     dim2 += this.numSegments
+    //     dim2 += " * "
+    //     dim2 += Math.floor((this.numSegments - this.extraSpace) / 2) || Math.ceil((this.numSegments + this.numSegments - this.extraSpace) / 2)
+    //     dim2 += " )"
+    //     if(this.postEven && this.segmentsEven){
+    //       return{
+    //         front: dim,
+    //         back: dim
+    //       }
+    //     }
+    //     return {
+    //       front: dim,
+    //       back: dim2
+    //     }
+    //   }
+    //
+    // },
     tileDimension: function() {
       let dim = "calc(100% / "
       dim += this.numSegments
       dim += " )"
       return dim
     },
-    numSegments: function() {
+    numSegments: function() { // compute numer of segments by page width
       let numS = 0;
-      let width = this.innerWidth;
-      let baseWidth = (1900 / this.baseSegments) // calculkate dynamically based on my screen because i only own so many devices
-      numS = Math.round(width / baseWidth)
+      // let width = this.innerWidth;
+      // let baseWidth = (1900 / this.baseSegments) // calculkate dynamically based on my screen because i only own so many devices
+      // numS = Math.floor(width / baseWidth)
+      numS = Math.floor(this.innerWidth / this.minSegmentWidth) // turns out the other approach couldn't be tuned meaningfully. now computes based on minimum width TODO: make this react to a css variable instead to keep style settings in css
       return numS
+    },
+    numPosts(){ // number of posts as easy var
+      return this.posts.length
+    },
+    numRows(){ // rows must fit all posts and two cards so at least numPosts + 2 and a bit more if the cards are wider than 1 segment
+      return Math.ceil((this.numPosts+2)/this.numSegments)
+    },
+    segmentsRemainder(){ // return remaining space or number of segments. if space <= 1 is remaining, add a new row to fit the cards
+      let space = this.numSegments - (this.numPosts % this.numSegments)
+      return space > 1 ? space : this.numSegments+space
+    },
+    preWidth(){ // if remainder is uneven, first card is larger
+      return Math.ceil(this.segmentsRemainder/2)
+    },
+    postWidth(){// if remainder is uneven, second card is smaller
+      return Math.floor(this.segmentsRemainder/2)
+    },
+    greetingDimension(){
+      if(this.preWidth == 1 && this.postWidth == 1){ // if only 2 spaces to give, give first one both.
+        if(this.numSegments > 3){ // if many columns, leave out last one or it woule be huge
+          return {
+            front: "calc(100% / " + this.numSegments + " * 2 )",
+            back: null,
+            tileContainerHeight: "calc( ( 100vh - 8rem ) * " + this.numRows + " )",
+          }
+        }
+        return { // if not many rows, make last one full width and add a row for it
+          front: "calc(100% / " + this.numSegments + " * 2 )",
+          back: "100%",
+          tileContainerHeight: "calc( ( 100vh - 8rem ) * " + (this.numRows+1) + " )",
+        }
+      }
+      return { // if more than 2 spaces to give, give as calculated
+        front: "calc(100% / " + this.numSegments + " * " + this.preWidth + " )",
+        back: "calc(100% / " + this.numSegments + " * " + this.postWidth + " )",
+        tileContainerHeight: "calc( ( 100vh - 8rem ) * " + this.numRows + " )",
+      }
     },
     randImgs: function() {
       let URLs = []

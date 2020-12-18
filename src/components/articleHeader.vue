@@ -87,14 +87,20 @@ export default {
       return this.arrayNoEmpty(this.deliverables)
     },
     date: function(){
-      return new Date(this.creted_orig ? this.created_orig : this.created_on)
+      console.log(typeof(this.created_on), this.created_orig, this)
+      return new Date(this.created_orig ? this.created_orig : this.created_on)
     },
     dateString: function(){
-      return this.creted_orig ? this.date.getMonth() + "." + this.date.getFullYear() : this.date.getDate() + "." + this.date.getMonth() + "." + this.date.getFullYear();
+      let sw = this.created_orig
+      return sw ? (this.date.getMonth()+1) + "." + this.date.getFullYear() : this.date.getDate() + "." + (this.date.getMonth()+1) + "." + this.date.getFullYear();
     },
     datePre: function(){
-      return this.creted_orig ? this.projectCreatedString : this.createdString
+      let sw = this.created_orig
+      return sw ? this.projectCreatedString : this.createdString
     }
+  },
+  watch: {
+
   },
   methods: {
       arrayNoEmpty(array){
