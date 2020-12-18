@@ -87,7 +87,6 @@ export default {
       return this.arrayNoEmpty(this.deliverables)
     },
     date: function(){
-      console.log(typeof(this.created_on), this.created_orig, this)
       return new Date(this.created_orig ? this.created_orig : this.created_on)
     },
     dateString: function(){

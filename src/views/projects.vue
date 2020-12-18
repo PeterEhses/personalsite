@@ -49,6 +49,7 @@ export default {
       // baseSegments: 7,
       minSegmentWidth: 300, // segment width in px
       picdata: undefined,
+      sorting: "sort",
       innerWidth: (window.innerWidth > 0) ? window.innerWidth : screen.width,
       postdata: [],
       greetingText: {
@@ -81,16 +82,30 @@ export default {
   computed: {
     posts: function() {
       let posts = [];
+      //let nowDate = new Date();
       if (this.postdata["data"]) {
         for (let i = 0; i < this.postdata["data"].length; i++) {
 
           let post = this.postdata["data"][i];
           post.collection = this.collection;
+          let postDate
+          if(this.sorting == "date"){
+            if(post.created_original){
+              postDate = Date.parse(post.created_original)
+            } else {
+              postDate = Date.parse(post.created_on)
+            }
+            post.sortDate = postDate
+          }
           posts.push(post);
 
         }
       }
-
+      if(this.sorting == "date"){
+        posts.sort(function(a,b){return b.sortDate-a.sortDate});
+      } else if(this.sorting == "sort"){
+        posts.sort(function(a,b){return a.sort-b.sort});
+      }
       return posts;
     },
     postsSplit: function() {
@@ -242,7 +257,7 @@ export default {
     getPosts(collection) {
       let that = this;
       this.$api.getItems(this.$api.prefix + collection, {
-          fields: ["id", "title", "header_image.data.full_url"],
+          fields: ["id", "title", "header_image.data.full_url", "created_original", "created_on", "sort"],
           sort: "-created_on"
         }).then(data => {
           //console.log(data)

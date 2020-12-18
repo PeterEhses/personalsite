@@ -32,6 +32,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - image side by side case (semi gallery in body)
 - B L O G
 - frontpage copy as directus api call
+- ~~sort by date submitted or original date if present~~
 - sorting
 - filtering
 - personalized sites
