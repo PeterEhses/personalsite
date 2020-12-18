@@ -9,26 +9,7 @@
     </div>
   </div>
   <div id="actualcontent">
-    <header id="nav">
-      <router-link to="/">
-        <div id="logo">
-          <h2>Peter Ehses</h2>
-          <hr />
-          <h1>Portfolio</h1>
-        </div>
-      </router-link>
-      <nav>
-        <router-link to="/about" class="nav" title="Kontakt">About</router-link>
-        <hr />
-        <router-link to="/projects" class="nav" title="Projekte">Projekte</router-link>
-        <!-- <hr />
-        <router-link to="/about" class="nav" title="Blog">Blog</router-link> -->
-
-
-      </nav>
-
-
-    </header>
+    <vHeader/>
     <router-view class="router-content" />
     <cookies />
     <footerBoi />
@@ -43,6 +24,7 @@
 import footerBoi from "@/components/footer.vue"
 import cookies from "@/components/cookies.vue"
 import themeToggle from "@/components/themeToggle.vue"
+import vHeader from "@/components/header.vue"
 // // DUMB HYPHENATION HACK REMOVE ONCE CHROME DOESN'T SUCK ANYMORE
 // // eslint-disable-next-line
 // var Hyphenopoly = {
@@ -69,7 +51,8 @@ export default {
 
     footerBoi,
     cookies,
-    themeToggle
+    themeToggle,
+    vHeader
   },
   // mounted() {
   //     this.$nextTick(function(){
