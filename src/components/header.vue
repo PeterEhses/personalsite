@@ -16,9 +16,9 @@
 
     </div>
     <nav>
-      <router-link to="/about" class="nav" title="Kontakt">About</router-link>
+      <router-link to="/about" class="nav" title="Kontakt" @click.native="offMenu">About</router-link>
       <hr />
-      <router-link to="/projects" class="nav" title="Projekte">Projekte</router-link>
+      <router-link to="/projects" class="nav" title="Projekte" @click.native="offMenu">Projekte</router-link>
       <!-- <hr />
       <router-link to="/about" class="nav" title="Blog">Blog</router-link> -->
 
@@ -38,6 +38,9 @@ export default {
   methods: {
     toggleMenu(){
       this.hamburgerActive = !this.hamburgerActive
+    },
+    offMenu(){
+      this.hamburgerActive = false;
     }
   }
 
@@ -87,6 +90,9 @@ export default {
       nav{
         transform: translate(0%, 0);
       }
+      #logo{
+        padding-right: 5em;
+      }
     }
 
     nav{
@@ -110,5 +116,41 @@ export default {
     }
   }
 
+}
+@media  (max-width: 850px){
+  #logo{
+    text-align: center;
+    hr{
+      //visibility: hidden;
+      display: block;
+      margin: 0 auto .3em auto;
+    }
+    h1, h2{
+      margin: 0;
+    }
+  }
+}
+@media  (max-width: 530px){
+  nav{
+    width: 100vw;
+    padding-left: 0 !important;
+  }
+}
+@media  (max-width: 400px){
+  #logo{
+    h1, hr{
+      visibility: hidden;
+      height: 0;
+      margin: 0;
+      position: absolute;
+    }
+  }
+}
+@media  (max-width: 260px){
+  #nav.is-active{
+    #logo h2{
+      font-size: 1rem;
+    }
+  }
 }
 </style>
