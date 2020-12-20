@@ -6,21 +6,24 @@ import store from './store'
 
 
 // detect user agent to see if mobile and serve reduced animation for performance
-import DeviceDetector from "device-detector-js";
-const deviceDetector = new DeviceDetector();
-Vue.prototype.$deviceIsSlow = false
-try {
-  const userAgent = navigator.userAgent
-  const device = deviceDetector.parse(userAgent);
-  if(device.device.type == "smartphone" || device.device.type == "television"){
-    Vue.prototype.$deviceIsSlow = true
-    console.log("this device is assumed to be slow, so expect reduced animation")
-  } else {
-    console.log("this device is assumed to be fast, so expect performance hungry effects ✨")
-  }
-} catch (e) {
-  console.log("Couldn't detect if this device is slow. We'll try the fancy version but it might be slow")
-}
+
+// deactivated for now since is unused
+// Vue.prototype.$deviceIsSlow = false
+// import DeviceDetector from "device-detector-js";
+// const deviceDetector = new DeviceDetector();
+//
+// try {
+//   const userAgent = navigator.userAgent
+//   const device = deviceDetector.parse(userAgent);
+//   if(device.device.type == "smartphone" || device.device.type == "television"){
+//     Vue.prototype.$deviceIsSlow = true
+//     console.log("this device is assumed to be slow, so expect reduced animation")
+//   } else {
+//     console.log("this device is assumed to be fast, so expect performance hungry effects ✨")
+//   }
+// } catch (e) {
+//   console.log("Couldn't detect if this device is slow. We'll try the fancy version but it might be slow")
+// }
 
 
 // video players
@@ -257,6 +260,7 @@ window.updateBG = function(){
   }
   let styles = {
     "--bg": bgnew,
+    "background-color": bgnew,
     "--content-color": contentCol,
     "--accent-color": accentCol
   }

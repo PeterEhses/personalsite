@@ -1,6 +1,6 @@
 <template>
   <div id="decoration" aria-hidden="true">
-    <div id="scrollhead" :class="[$deviceIsSlow ? 'scrollhead-not-animated' : 'scrollhead-animated']">
+    <div id="scrollhead" class="scrollhead-animated"> <!-- :class="[$deviceIsSlow ? 'scrollhead-animated' : 'scrollhead-animated']" -->
       <div class="scrollinner" v-for="idy in 15" :key="idy">
         <span v-for="idx in 10" :key="idx">{{$route.name}}</span>
       </div>
@@ -30,6 +30,7 @@ export default {
     transform: translate3d(var(--move-initial), 0, 0);
     animation: marquee 200s linear infinite;
     animation-play-state: running;
+    will-change: transform;
   }
 }
 //mobile devices get static boringness so they maybe don't freeze maybe

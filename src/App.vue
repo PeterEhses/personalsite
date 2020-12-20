@@ -134,6 +134,7 @@ export default {
     --article-safe-space: calc(var(--article-margin-default) * var(--article-safe-space-scalar));
 }
 
+
 // SELECTION
 
 ::-moz-selection { /* Code for Firefox */
