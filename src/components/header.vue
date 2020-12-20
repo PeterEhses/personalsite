@@ -12,9 +12,9 @@
         <span class="hamburger-inner"></span>
       </span>
     </button>
-    <div class="header-blur">
+    <!-- <div class="header-blur">
 
-    </div>
+    </div> -->
     <nav>
       <router-link to="/about" class="nav" title="Kontakt" @click.native="offMenu">About</router-link>
       <hr />
@@ -134,6 +134,9 @@ export default {
   nav{
     width: 100vw;
     padding-left: 0 !important;
+  }
+  .header-blur{
+    visibility: hidden;
   }
 }
 @media  (max-width: 400px){

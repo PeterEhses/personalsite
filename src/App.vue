@@ -1,13 +1,6 @@
 <template>
 <div id="app">
-  <div id="decoration" aria-hidden="true">
-    <div id="scrollhead">
-      <div class="scrollinner" v-for="idy in 15" :key="idy">
-        <span v-for="idx in 10" :key="idx">{{$route.name}}</span>
-      </div>
-
-    </div>
-  </div>
+  <marqueeBG/>
   <div id="actualcontent">
     <vHeader/>
     <router-view class="router-content" />
@@ -25,6 +18,7 @@ import footerBoi from "@/components/footer.vue"
 import cookies from "@/components/cookies.vue"
 import themeToggle from "@/components/themeToggle.vue"
 import vHeader from "@/components/header.vue"
+import marqueeBG from "@/components/marqueeBG.vue"
 // // DUMB HYPHENATION HACK REMOVE ONCE CHROME DOESN'T SUCK ANYMORE
 // // eslint-disable-next-line
 // var Hyphenopoly = {
@@ -52,7 +46,8 @@ export default {
     footerBoi,
     cookies,
     themeToggle,
-    vHeader
+    vHeader,
+    marqueeBG
   },
   // mounted() {
   //     this.$nextTick(function(){
@@ -329,15 +324,7 @@ hr {
     min-height: calc(100vh - 10.5rem);
 }
 
-#decoration {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-image: url("/img/img-noise-256x256.png");
-    background-blend-mode: lighten;
-    background-color: var(--bg);
-}
+
 #actualcontent {
     position: absolute;
     width: 100vw;
@@ -351,50 +338,7 @@ hr {
     height: 100vh;
 
 }
-#scrollhead {
-    opacity: 0.5;
-    position: relative;
-    overflow: hidden;
-    --offset: 5rem;
-    --move-initial: calc(-10% + var(--offset));
-    --move-final: calc(-50% + var(--offset));
 
-    & .scrollinner {
-        &:nth-child(2n) {
-            animation-direction: reverse;
-        }
-        white-space: nowrap;
-        width: fit-content;
-        display: flex;
-        align-items: baseline;
-        position: relative;
-        transform: translate3d(var(--move-initial), 0, 0);
-        animation: marquee 200s linear infinite;
-        animation-play-state: running;
-    }
-
-    & span {
-        &:nth-child(n) {
-            //font-family: aw-conqueror-didot, serif;
-            font-family: var(--accent-text-font);
-            font-style: var(--accent-text-style);
-            font-weight: var(--accent-text-weight);
-
-        }
-
-        line-height: 0.91;
-
-        font-size: 9.6rem;
-
-        padding: 0 1rem;
-
-        color: --base-color;
-        -webkit-text-fill-color: var(--bg);
-        /* Will override color (regardless of order) */
-        -webkit-text-stroke-width: 1px;
-        -webkit-text-stroke-color: var(--accent-color);
-    }
-}
 .articlebody,
 .markdown,
 .singlepagecontent {
@@ -704,13 +648,5 @@ hr {
 
 }
 
-@keyframes marquee {
-    0% {
-        transform: translate3d(var(--move-initial), 0, 0);
-    }
 
-    100% {
-        transform: translate3d(var(--move-final), 0, 0);
-    }
-}
 </style>

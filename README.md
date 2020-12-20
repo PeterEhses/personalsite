@@ -25,6 +25,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## TODO
 - ~~Pill sizing math is garbage. try to clear out all the conditionals and do actual math instead.~~
+- backdrop-filter: blur polyfill
+- ~~detect smartphones and serve them boring stuff so they don't choke on their shitness~~
+- jumpy menu header on phone 5/SE, iphone 6/7/8, X,
 - make pill min size use css var
 - mobile everything
 - youtube iframe in body parser instead of code copy paste
