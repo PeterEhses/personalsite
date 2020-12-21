@@ -39,7 +39,7 @@ module.exports = {
           "type": "image/png"
         }
       ],
-      "start_url": "/index.html",
+      "start_url": "/",
       "display": "standalone",
       "background_color": "#303030",
       "theme_color": "#00b4bf",
