@@ -11,6 +11,24 @@ module.exports = {
       "short_name": "Peter Ehses",
       "icons": [
         {
+          "src": "/img/icons/maskable_icon.png",
+          "sizes": "3283x3283",
+          "type": "image/png",
+          "purpose": "any maskable"
+        },
+        {
+          "src": "/img/icons/maskable_icon-512x512.png",
+          "sizes": "512x512",
+          "type": "image/png",
+          "purpose": "any maskable"
+        },
+        {
+          "src": "/img/icons/maskable_icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png",
+          "purpose": "any maskable"
+        },
+        {
           "src": "/img/icons/pwa-192x192.png",
           "sizes": "192x192",
           "type": "image/png"
@@ -21,10 +39,19 @@ module.exports = {
           "type": "image/png"
         }
       ],
-      "start_url": "/",
+      "start_url": "/index.html",
       "display": "standalone",
       "background_color": "#303030",
-      "theme_color": "#00b4bf"
+      "theme_color": "#00b4bf",
+      // "shortcuts": [
+      //   {
+      //     "name": "projects",
+      //     "short_name": "projects",
+      //     "description": "view projects",
+      //     "url": "/projects",
+      //     "icons": [{ "src": "/images/today.png", "sizes": "192x192" }]
+      //   },
+      // ]
     },
     iconPaths: {
       favicon32: 'img/icons/favicon-32x32.png',
@@ -34,11 +61,12 @@ module.exports = {
       msTileImage: 'img/icons/mstile-144x144.png'
     },
     // configure the workbox plugin
-    workboxPluginMode: 'InjectManifest',
-    workboxOptions: {
-      // swSrc is required in InjectManifest mode.
-      swSrc: "src/service-worker.js",
-      // ...other Workbox options...
-    }
+    workboxPluginMode: 'GenerateSW',
+    // workboxOptions: {
+    //   // swSrc is required in InjectManifest mode.
+    //   swSrc: "src/service-worker.js",
+    //   // navigateFallback: 'index.html',
+    //   // ...other Workbox options...
+    // }
   }
 }

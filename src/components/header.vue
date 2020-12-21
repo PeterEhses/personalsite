@@ -12,9 +12,9 @@
         <span class="hamburger-inner"></span>
       </span>
     </button>
-    <!-- <div class="header-blur">
+    <div class="header-blur">
 
-    </div> -->
+    </div>
     <nav>
       <router-link to="/about" class="nav" title="Kontakt" @click.native="offMenu">About</router-link>
       <hr />

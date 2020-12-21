@@ -1,16 +1,18 @@
 <template lang="html">
   <hgroup class="header" >
     <div class="primary">
-      <div class="date">
-        <time :datetime="date.toISOString()">
-          {{datePre}}
-          {{dateString}}
-        </time>
-      </div>
+      <div class="titlewrapper">
+        <div class="date">
+          <time :datetime="date.toISOString()">
+            {{datePre}}
+            {{dateString}}
+          </time>
+        </div>
 
-      <title class="projectTitle">
-        <h2><slot></slot></h2>
-      </title>
+        <title class="projectTitle">
+          <h2><slot></slot></h2>
+        </title>
+      </div>
     </div>
 
     <div class="secondary" v-if="links">
@@ -140,6 +142,14 @@ export default {
       }
 
     }
+    .titlewrapper{
+      display: inline-flex;
+      align-items: stretch;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
     // .secondary{
     //   //border-top: var(--border-width) solid var(--content-color);
     //   //flex-direction: row-reverse;
@@ -268,6 +278,9 @@ export default {
       clear: both;
       display: block;
     }
+    .date{
+      display: flex;
+    }
     .date time{
       align-self: center;
       //height: 100%;
@@ -293,4 +306,40 @@ export default {
       border-left: var(--border-style);
     }
   }
+
+
+@media  (max-width: 1050px){
+  .header{
+    .teamrole .team, .teamrole .role{
+      width: auto;
+    }
+    .teamrole .team,.teamrole .role, .titlewrapper{
+      display: block;
+      h3, .date{
+        padding: .5rem !important;
+        padding-top: 1rem !important;
+        padding-bottom: 0 !important;
+        display: block;
+        white-space: nowrap;
+        width: min-content;
+        text-align: left;
+        border: none;
+      }
+      title, p{
+        padding: 1em !important;
+        padding-left: .5rem !important;
+        padding-top: 0rem !important;
+      }
+    }
+    .titlewrapper, .team, .role{
+      left: 0;
+      position: relative;
+      width: auto;
+      display: block;
+      margin-left: var(--perfect-padding);
+      border-left: var(--border-style) !important;
+    }
+  }
+
+}
 </style>
