@@ -24,12 +24,13 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## TODO
+- mobile <- symbol
 - ~~Pill sizing math is garbage. try to clear out all the conditionals and do actual math instead.~~
 - backdrop-filter: blur polyfill
 - ~~detect smartphones and serve them boring stuff so they don't choke on their shitness~~
-- jumpy menu header on phone 5/SE, iphone 6/7/8, X,
+- ~~jumpy menu header on phone 5/SE, iphone 6/7/8, X,~~
 - make pill min size use css var
-- mobile everything
+- ~~mobile everything~~
 - youtube iframe in body parser instead of code copy paste
 - side image case for directly after each other. how do other people do this?
 - image side by side case (semi gallery in body)

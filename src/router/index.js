@@ -15,6 +15,15 @@ Vue.use(VueRouter)
     // component: () => import(/* webpackChunkName: "projects" */ '../views/projects.vue')
   },
   {
+    path: '/index.html',
+    redirect: '/projects',
+    // meta:{
+    //   collection: "projects",
+    // },
+    // name: 'Projekte',
+    // component: () => import(/* webpackChunkName: "projects" */ '../views/projects.vue')
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting
