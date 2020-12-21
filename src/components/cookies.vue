@@ -43,6 +43,7 @@ import {setOptions, bootstrap } from 'vue-gtag'
   z-index: 123456 !important;
 }
 .Cookie{
+  color: var(--content-color);
   z-index: 123456 !important;
   background: var(--bg) !important;
   border: var(--border-width) solid var(--content-color);
