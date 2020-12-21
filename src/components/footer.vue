@@ -47,4 +47,15 @@ components:{
       }
   }
 }
+@media  (max-width: 600px){
+  #footer{
+    max-height: 5rem;
+  }
+}
+@media  (max-width: 370px){
+  hr{
+    display: none;
+    visibility: hidden;
+  }
+}
 </style>

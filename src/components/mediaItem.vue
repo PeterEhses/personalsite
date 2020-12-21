@@ -206,5 +206,10 @@ export default {
 
   }
 }
+@media (max-width: 350px){
+  .mItem{
+    border-radius: 4.5rem 0 5rem 0;
+  }
 
+}
 </style>

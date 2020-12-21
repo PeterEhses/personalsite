@@ -82,4 +82,12 @@ h3{
   border: 2px solid var(--content-color);
   border-radius: 9000px;
 }
+@media  (max-width: 400px){
+  .contentbox{
+    padding-top: 7.5%;
+  }
+  h3{
+    margin-top: 0;
+  }
+}
 </style>

@@ -243,7 +243,7 @@ export default {
         display: block;
         margin: auto;
         margin-left: 0;
-        width: max-content;
+        width: 100%;
         &:after{
           content: " ↩";
           content: "";
@@ -341,5 +341,15 @@ export default {
     }
   }
 
+}
+@media  (max-width: 900px){
+  .header{
+    .titlewrapper, .teamrole .team, .teamrole .role{
+      border-left: none !important;
+      title, .date, h3, p{
+        padding-left: 0 !important;
+      }
+    }
+  }
 }
 </style>

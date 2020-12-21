@@ -306,4 +306,14 @@ export default {
 
 
 }
+@media (max-width: 350px){
+  .activeArticle{
+    border-radius: 5rem 0 0 0;
+    top: calc(var(--article-indent-left)/2);
+    margin-left: calc(var(--article-indent-left)/2);
+    width: calc(100% - calc(var(--article-indent-left)/2));
+    height: calc(100vh - calc(var(--article-indent-left)/2));
+  }
+
+}
 </style>

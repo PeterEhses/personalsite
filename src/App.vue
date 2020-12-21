@@ -464,49 +464,7 @@ hr {
       }
     }
 
-    figure.side{
-      display: block;
-      padding: 0;
-        width: var(--article-image-indent);
-        float: left;
-        margin: 0 0 calc(var(--article-margin-default) / 3);
 
-        img {
-            max-width: var(--article-overflow-width);
-            max-width: max(min(var(--article-overflow-width), var(--acticle-image-max-width)), var(--article-image-indent));
-            max-height: var(--article-image-max-height-default);
-            float: right;
-            //--article-image-indent
-            margin: var(--article-margin-default) calc(var(--article-margin-default)*2) calc(var(--article-margin-default) / 2) calc(var(--article-margin-default)*2);
-        }
-        figcaption {
-            position: relative;
-            top: calc(var(--article-margin-default) * -.5);
-            max-width: min(var(--article-overflow-width), var(--acticle-image-max-width));
-            margin-right: calc(var(--article-margin-default)*2);
-            padding-top: 0.75em;
-            // padding-right: calc(var(--article-margin-default) / 2);
-            // padding-bottom: .5em;
-            text-align: right;
-            float: right;
-            // border-right: var(--border-width) solid var(--content-color);
-            // border-bottom: var(--border-width) solid var(--content-color);
-            // border-radius: 0 0 var(--article-margin-default) 0;
-        }
-        &:nth-of-type(even) {
-            float: right;
-            figcaption {
-                text-align: left;
-                float: left;
-                margin-right: auto;
-                margin-left: calc(var(--article-margin-default)*2);
-            }
-            img {
-                float: left;
-            }
-        }
-
-    }
 
 
 
@@ -649,5 +607,91 @@ hr {
 
 }
 
+@media (min-width: 900px){
+  .articlebody,
+  .markdown,
+  .singlepagecontent {
+    figure.side{
+      display: block;
+      padding: 0;
+        width: var(--article-image-indent);
+        float: left;
+        margin: 0 0 calc(var(--article-margin-default) / 3);
+
+        img {
+            max-width: var(--article-overflow-width);
+            max-width: max(min(var(--article-overflow-width), var(--acticle-image-max-width)), var(--article-image-indent));
+            max-height: var(--article-image-max-height-default);
+            float: right;
+            //--article-image-indent
+            margin: var(--article-margin-default) calc(var(--article-margin-default)*2) calc(var(--article-margin-default) / 2) calc(var(--article-margin-default)*2);
+        }
+        figcaption {
+            position: relative;
+            top: calc(var(--article-margin-default) * -.5);
+            max-width: min(var(--article-overflow-width), var(--acticle-image-max-width));
+            margin-right: calc(var(--article-margin-default)*2);
+            padding-top: 0.75em;
+            // padding-right: calc(var(--article-margin-default) / 2);
+            // padding-bottom: .5em;
+            text-align: right;
+            float: right;
+            // border-right: var(--border-width) solid var(--content-color);
+            // border-bottom: var(--border-width) solid var(--content-color);
+            // border-radius: 0 0 var(--article-margin-default) 0;
+        }
+        &:nth-of-type(even) {
+            float: right;
+            figcaption {
+                text-align: left;
+                float: left;
+                margin-right: auto;
+                margin-left: calc(var(--article-margin-default)*2);
+            }
+            img {
+                float: left;
+            }
+        }
+
+    }
+  }
+}
+
+@media (max-width: 900px){
+  :root{
+    --article-margin-default: 1rem;
+  }
+  // .articlebody,
+  // .markdown,
+  // .singlepagecontent {
+  //   figure{
+  //     padding: 0 !important;
+  //   }
+  // }
+}
+@media (max-width: 700px){
+  :root{
+    --article-margin-default: .5rem;
+  }
+}
+@media (max-width: 450px){
+  :root{
+    font-size: 1.15em;
+    --article-margin-default: .5rem;
+  }
+  .articlebody,
+  .markdown,
+  .singlepagecontent {
+    figure{
+      padding: 0 !important;
+    }
+  }
+}
+
+@media  (max-width: 400px){
+  .router-content{
+    margin-top: 6rem !important;
+  }
+}
 
 </style>

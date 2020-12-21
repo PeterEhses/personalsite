@@ -15,8 +15,8 @@
           @ended="vidstop"
           />
     </transition-group>
-    <a :class="['prev', currentImg.content_type=='video' ? 'vid' : '']" @click="prev" href="#" v-if="itemsLength > 1"><p>&#10094;</p></a>
-    <a :class="['next', currentImg.content_type=='video' ? 'vid' : '']" @click="next" href="#" v-if="itemsLength > 1"><p>&#10095;</p></a>
+    <a :class="['prev', currentImg.content_type=='video' ? 'vid' : '']" @click="prev"  v-if="itemsLength > 1"><p>&#10094;</p></a>
+    <a :class="['next', currentImg.content_type=='video' ? 'vid' : '']" @click="next"  v-if="itemsLength > 1"><p>&#10095;</p></a>
     </div>
     <div
     class="coverlist"
@@ -247,6 +247,7 @@ export default {
         opacity: 1;
       }
       p {
+        font-size: 2rem;
         padding: var(--article-margin-default);
         margin: 0;
         position: absolute;

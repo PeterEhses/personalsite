@@ -111,4 +111,9 @@ export default {
     border-radius: 10rem;
     //border: var(--border-width) solid var(--content-color);
   }
+  @media (max-width: 700px){
+    .content{
+      padding: 3rem 0;
+    }
+  }
 </style>

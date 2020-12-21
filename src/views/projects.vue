@@ -189,7 +189,7 @@ export default {
       // let baseWidth = (1900 / this.baseSegments) // calculkate dynamically based on my screen because i only own so many devices
       // numS = Math.floor(width / baseWidth)
       numS = Math.floor(this.innerWidth / this.minSegmentWidth) // turns out the other approach couldn't be tuned meaningfully. now computes based on minimum width TODO: make this react to a css variable instead to keep style settings in css
-      return numS
+      return numS > 0 ? numS : 1
     },
     numPosts(){ // number of posts as easy var
       return this.posts.length
@@ -309,4 +309,10 @@ export default {
 }
 .tile {}
 .greeting {}
+@media  (max-width: 400px){
+  .tile,
+  .tileContainer {
+    height: calc(100vh - 6.666rem);
+  }
+}
 </style>

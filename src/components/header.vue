@@ -91,7 +91,7 @@ export default {
         transform: translate(0%, 0);
       }
       #logo{
-        padding-right: 5em;
+        padding-right: 6em;
       }
     }
 
@@ -140,6 +140,9 @@ export default {
   }
 }
 @media  (max-width: 400px){
+  header#nav{
+    height: 6rem;
+  }
   #logo{
     h1, hr{
       visibility: hidden;
@@ -150,7 +153,7 @@ export default {
   }
 }
 @media  (max-width: 260px){
-  #nav.is-active{
+  #nav{
     #logo h2{
       font-size: 1rem;
     }
