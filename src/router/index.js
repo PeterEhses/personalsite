@@ -64,6 +64,14 @@ Vue.use(VueRouter)
     component: () => import(/* webpackChunkName: "projects" */ '../views/projects.vue')
   },
   {
+    path: '/christmas',
+    name: 'Merry Christmas',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "projects" */ '../views/Christmas.vue')
+  },
+  {
     path: '/projects/:id',
     meta:{
       collection: "projects",

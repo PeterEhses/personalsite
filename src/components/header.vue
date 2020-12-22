@@ -19,6 +19,8 @@
       <router-link to="/about" class="nav" title="Kontakt" @click.native="offMenu">About</router-link>
       <hr />
       <router-link to="/projects" class="nav" title="Projekte" @click.native="offMenu">Projekte</router-link>
+      <hr v-if="isChristmas"/>
+      <router-link to="/christmas" v-if="isChristmas" class="nav" title="Merry Christmas" @click.native="offMenu">Christmas</router-link>
       <!-- <hr />
       <router-link to="/about" class="nav" title="Blog">Blog</router-link> -->
 
@@ -35,13 +37,24 @@ export default {
       hamburgerActive: false,
     }
   },
+  computed: {
+    isChristmas(){
+      let today = new Date()
+      let from = new Date("12/01/2020");
+      from.setFullYear(today.getFullYear());
+      let to = new Date("12/27/2020");
+      to.setFullYear(today.getFullYear());
+      return today >= from.getTime() && today.getTime() <= to.getTime();
+    }
+  },
   methods: {
     toggleMenu(){
       this.hamburgerActive = !this.hamburgerActive
     },
     offMenu(){
       this.hamburgerActive = false;
-    }
+    },
+
   }
 
 }
