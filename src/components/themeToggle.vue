@@ -31,7 +31,7 @@ export default {
   data(){
     return{
       visible: false,
-      active: 'vers'
+      active: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'vers'
     }
   },
   methods: {
@@ -50,6 +50,10 @@ export default {
       window.theme_mode = this.active
       window.updateBG()
     }
+  },
+  mounted: function(){
+          window.theme_mode = this.active
+      window.updateBG()
   }
 }
 </script>

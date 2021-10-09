@@ -203,10 +203,12 @@ export default {
   background-image: url("/img/img-noise-256x256.png");
   background-attachment: local;
   background-blend-mode: lighten;
+  background-repeat: repeat;
   background-color: var(--bg);
   &::-webkit-scrollbar-track {
     background-image: url("/img/img-noise-256x256.png");
     background-color: var(--bg);
+    background-repeat: repeat;
     border-radius: 0;
     //border: .5px solid var(--content-color);
   }

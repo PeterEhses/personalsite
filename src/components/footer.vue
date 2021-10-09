@@ -31,7 +31,11 @@ components:{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--bg);
+  background-image: url("/img/img-noise-256x256.png");
+  background-attachment: local;
+  background-blend-mode: lighten;
+  background-repeat: repeat;
+  background-color: var(--bg);
   border-top: var(--border-width) solid var(--content-color);
   width: 100%;
   padding: 0 1rem;
