@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@directus/sdk-js": "^6.2.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.2",
     "colorthief": "^2.3.2",
     "core-js": "^3.6.5",
     "device-detector-js": "^2.2.6",
